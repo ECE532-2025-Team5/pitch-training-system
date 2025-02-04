@@ -1,13 +1,20 @@
-module mypwm #(parameter TPWM = 10) (
+// Here, DC is a number between 0 to TPWM.
+// In a higher hierarchy file, you can create a circuit that DC is between 0 and 100% (or 0 to 255).
+// If DC = 0 --> oPWM = 0
+// If DC = TPWM -> oPWM = 1
+//   If DC > TPWM --> oPWM = 1 (this can happen by mistake if TPWM is not a power of 2 minus 1).
+// TPWM: Period (in terms of periods of input frequency). If input frequency is 100 MHz, then TPWM = 2000 means 50 KHz
+
+module mypwm #(parameter TPWM = 10) (       // Time (in periods of clock) of a period of PWM. It can't be 0 or 1
     input wire resetn,
     input wire clock,
-    input wire [$clog2(TPWM+1)-1:0] DC,
+    input wire [$clog2(TPWM+1)-1:0] DC,     // Number between 0 and TPWM
     output reg oPWM
 );
 
     localparam nDC = $clog2(TPWM+1);
     reg [nDC-1:0] DCq;
-    reg [nDC-1:0] Q;
+    reg [nDC-1:0] Q;    // 0 to TPWM - 1
     reg [1:0] y;
     
     always @(posedge clock or negedge resetn) begin
