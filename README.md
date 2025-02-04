@@ -16,5 +16,6 @@ set_property -dict { PACKAGE_PIN D12   IOSTANDARD LVCMOS33 } [get_ports { AUD_SD
 ```
 
 [VHDL Sample Project Download](https://www.secs.oakland.edu/~llamocca/VHDLforFPGAs.html)
+`My dear friend converted it into verilog, see ./example_project`
 
 [More sophisticated PWM Implementation](https://zipcpu.com/dsp/2017/09/04/pwm-reinvention.html)
