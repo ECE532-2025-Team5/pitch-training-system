@@ -19,23 +19,30 @@ module aud_pwm(
     initial cur_note = 6'd28;
     reg [3:0] volume;
     initial volume = 4'd0;
+    reg set;
+    initial set = 1'b0;
     reg btnr_, btnl_, btnu_, btnd_; // rising edge detection
     always @(negedge resetn or posedge clk) begin
+        set <= 1'b0;
         if (!resetn) begin
             cur_note <= 6'd28;
             volume <= 4'd0;
         end
         else if (!btnr_ && btnr) begin
             cur_note <= (cur_note < 6'd48) ? (cur_note + 1) : cur_note;
+            set <= 1'b1;
         end
         else if (!btnl_ && btnl) begin
             cur_note <= (cur_note > 6'd0) ? (cur_note - 1) : cur_note;
+            set <= 1'b1;
         end
         else if (!btnu_ && btnu) begin
             volume <= (volume < 3'd15) ? (volume + 1) : volume;
+            set <= 1'b1;
         end
         else if (!btnd_ && btnd) begin
             volume <= (volume > 3'd0) ? (volume - 1) : volume;
+            set <= 1'b1;
         end
         btnr_ <= btnr;
         btnl_ <= btnl;
@@ -69,33 +76,18 @@ module aud_pwm(
     end
     
     // Show note on LEDs
-    assign led[2:0] = octave_note[2:0];
-    assign led[6:4] = octave_num[2:0];
+    assign led[3:0] = scale_note[3:0];
+    assign led[7:5] = octave_num[2:0];
     assign led[13:8] = cur_note[5:0];
 
     // Audio Jack logic
-    //   COUNTS_PER_INTERVAL: the period
-    //       period and freq determines pitch
-    //   sample: the portion of "1"
-    //       duty cycle (sample/period) determines volumn
-    reg [15:0] sample;
-    reg	[31:0] pwm_counter;
-	initial	pwm_counter = 16'h00;
-    always @(posedge clk) begin
-        if (pwm_counter >= COUNTS_PER_INTERVAL-1) begin
-            pwm_counter <= 0;
-            // volume is determined by duty cycle, doesnt change pitch
-            sample <= (COUNTS_PER_INTERVAL >> (15 - volume));
-        end
-        else begin
-            pwm_counter <= pwm_counter + 1'b1;
-        end
-    end
-
-    reg out_pwm;
-    always @(posedge clk) begin
-	    out_pwm <= (pwm_counter < sample);
-    end
+    wire out_pwm;
+    freq_pwm f0(.clk(clk),
+                .resetn(resetn),
+                .set(set),
+                .clks_per_period(COUNTS_PER_INTERVAL),
+                .volume(volume),
+                .out_pwm(out_pwm));
 
     assign AUD_PWM = (out_pwm) ? 1'bz : 1'b0;   // that's just how it works
     assign AUD_SD = swt[15];                    // enable
@@ -113,6 +105,49 @@ module aud_pwm(
         else begin
             second_counter <= second_counter - 1'b1;
         end
+    end
+    
+endmodule
+
+module freq_pwm(
+    input clk,
+    input resetn,
+    input set,
+    input [31:0] clks_per_period,
+    input [3:0] volume,
+    output reg out_pwm
+);
+    // Audio Jack logic
+    //   clks_per_period: the period
+    //       period and freq determines pitch
+    //   sample: the portion of "1"
+    //       duty cycle (sample/period) determines volumn
+    reg [31:0] cur_period;
+    reg [31:0] sample;
+    reg [31:0] pwm_counter;
+    initial pwm_counter = 32'd0;
+
+    
+    always @(negedge resetn, posedge set, posedge clk) begin
+        if (!resetn) begin
+            pwm_counter <= 0;
+            sample <= 1;
+            cur_period <= 0;
+        end
+        else if (set) begin
+            cur_period <= clks_per_period;
+            sample <= (clks_per_period >> (15 - volume));
+        end
+        else if (pwm_counter >= cur_period-1) begin
+            pwm_counter <= 0;
+        end
+        else begin
+            pwm_counter <= pwm_counter + 1'b1;
+        end
+    end
+
+    always @(posedge clk) begin
+	    out_pwm <= (pwm_counter < sample);
     end
     
 endmodule
