@@ -31,7 +31,7 @@ module freq_pwm(
         end
         else if (pwm_counter >= period-1) begin
             pwm_counter <= 0;
-            sample <= (clks_per_period >> (shift + 1)); // update volume
+            sample <= (period >> (shift + 1)); // update volume
         end
         else begin
             pwm_counter <= pwm_counter + 1'b1;
