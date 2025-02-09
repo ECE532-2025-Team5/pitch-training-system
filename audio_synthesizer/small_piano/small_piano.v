@@ -4,8 +4,8 @@ module small_piano(
     input clk,
     input [15:0] swt,
     input btnl,
-//    input btnc,
-//    input btnr,
+    input btnc,
+    input btnr,
     input btnu,
     input btnd,
     input resetn,
@@ -14,7 +14,7 @@ module small_piano(
     output AUD_PWM
 );
     localparam NUMNOTES = 12;
-    localparam NUMCONCURRENT = 1;
+    localparam NUMCONCURRENT = 3;
     
     // Controls
     //   Switches: an octave on the keyboard from C:swt[11] to B:swt[0]
@@ -57,31 +57,43 @@ module small_piano(
     reg btnr_, btnc_, btnl_, btnu_, btnd_; // rising edge detection
     always @(negedge resetn or posedge clk) begin
         new_period[0] <= 0;
+        new_period[1] <= 0;
+        new_period[2] <= 0;
+        
         if (!resetn) begin
-            stored_notes[0] <= 0;
             new_period[0] <= 0;
-//            stored_notes[1] <= 0;
-//            stored_notes[2] <= 0;
+            new_period[1] <= 0;
+            new_period[2] <= 0;
+            stored_notes[0] <= 0;
+            stored_notes[1] <= 0;
+            stored_notes[2] <= 0;
             volume <= 4'd0;
         end
+        // 1st note
         else if (!btnl_ && btnl) begin
             stored_notes[0] <= (note_off) ? 0 : c1scale[cur_note];
             new_period[0] <= 1'b1;
         end
-//        else if (!btnc_ && btnc) begin
-//            stored_notes[1] <= c1scale[lowest_note];
-//        end
-//        else if (!btnr_ && btnr) begin
-//            stored_notes[2] <= c1scale[lowest_note];
-//        end
+        // 2nd note
+        else if (!btnc_ && btnc) begin
+            stored_notes[1] <= (note_off) ? 0 : c1scale[cur_note];
+            new_period[1] <= 1'b1;
+        end
+        // 3rd note
+        else if (!btnr_ && btnr) begin
+            stored_notes[2] <= (note_off) ? 0 : c1scale[cur_note];
+            new_period[2] <= 1'b1;
+        end
+        // vol up
         else if (!btnu_ && btnu) begin
             volume <= (volume < 4'd15) ? (volume + 1) : volume;
         end
+        // vol down
         else if (!btnd_ && btnd) begin
             volume <= (volume > 4'd0) ? (volume - 1) : volume;
         end
-//        btnr_ <= btnr;
-//        btnc_ <= btnc;
+        btnr_ <= btnr;
+        btnc_ <= btnc;
         btnl_ <= btnl;
         btnu_ <= btnu;
         btnd_ <= btnd;
@@ -90,25 +102,18 @@ module small_piano(
 
     // Audio Jack logic
     genvar i;
-    
     wire [NUMCONCURRENT-1:0] out_pwm_note;
     wire [NUMCONCURRENT-1:0] out_pwm;
-//    generate
-//    for (i = 0; i < NUMCONCURRENT; i = i+1) begin
-//        freq_pwm fN(.clk(clk),
-//                    .resetn(resetn),
-//                    .clks_per_period((stored_notes[i] >> 3)),    // octave 4
-//                    .volume(volume),
-//                    .out_pwm(out_pwm_note[i]));
-//    end
-//    endgenerate
-
-    freq_pwm fN(.clk(clk),
-                .resetn(resetn),
-                .new_period(new_period[0]),
-                .clks_per_period((stored_notes[0] >> octave_num)),
-                .volume(volume),
-                .out_pwm(out_pwm_note[0]));
+    generate
+    for (i = 0; i < NUMCONCURRENT; i = i+1) begin
+        freq_pwm fN(.clk(clk),
+                    .resetn(resetn),
+                    .new_period(new_period[i]),
+                    .clks_per_period((stored_notes[i] >> octave_num)),    // octave 4
+                    .volume(volume),
+                    .out_pwm(out_pwm_note[i]));
+    end
+    endgenerate
                 
     wire out_pwm_union;
     assign out_pwm_union = |out_pwm_note;    // bitwise-OR everything
