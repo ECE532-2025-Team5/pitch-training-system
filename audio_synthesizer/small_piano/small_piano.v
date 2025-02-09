@@ -4,7 +4,8 @@ module small_piano(
     input clk,
     input [15:0] swt,
     input btnl,
-    input btnr,
+//    input btnc,
+//    input btnr,
     input btnu,
     input btnd,
     input resetn,
@@ -12,71 +13,105 @@ module small_piano(
     output AUD_SD,
     output AUD_PWM
 );
+    localparam NUMNOTES = 12;
+    localparam NUMCONCURRENT = 1;
+    
     // Controls
+    //   Switches: an octave on the keyboard from C:swt[11] to B:swt[0]
+    //             octave number on swt[14:12]
     //   Volume: Up (incr), Down (decr)
-    //   Pitch: Left (lower), Right (higher)
-    reg [5:0] cur_note;
-    initial cur_note = 6'd28;
+    //   Pitch: stored on BTNL
+    wire [$clog2(NUMNOTES)-1:0] lowest_note;
+    wire note_off;
+    msb_index_finder #(.WIDTH(NUMNOTES)) m0 (.in(swt[(NUMNOTES-1):0]),
+                                             .msb_index(lowest_note),
+                                             .off(note_off));
+    reg [31:0] stored_notes [NUMCONCURRENT-1:0];
+    reg new_period [NUMCONCURRENT-1:0];
+    
+    wire [$clog2(NUMNOTES)-1:0] cur_note;
+    assign cur_note = NUMNOTES - 1 - lowest_note;
+    reg [31:0] c1scale [NUMNOTES-1:0];
+    always @* begin
+        case (cur_note)
+            0:  c1scale[0]  = 32'd3057805;   // C1
+            1:  c1scale[1]  = 32'd2886184;   // C#1
+            2:  c1scale[2]  = 32'd2724194;   // D1
+            3:  c1scale[3]  = 32'd2571298;   // D#1
+            4:  c1scale[4]  = 32'd2426982;   // E1
+            5:  c1scale[5]  = 32'd2290765;   // F1
+            6:  c1scale[6]  = 32'd2162195;   // F#1
+            7:  c1scale[7]  = 32'd2040840;   // G1
+            8:  c1scale[8]  = 32'd1926296;   // G#1
+            9:  c1scale[9]  = 32'd1818182;   // A1
+            10: c1scale[10] = 32'd1716135;   // A#1
+            11: c1scale[11] = 32'd1619816;   // B1
+         endcase
+    end
+    
+    wire [2:0] octave_num;
+    assign octave_num = swt[14:12];
+    
     reg [3:0] volume;
     initial volume = 4'd0;
-    reg set;
-    initial set = 1'b0;
-    reg btnr_, btnl_, btnu_, btnd_; // rising edge detection
+    reg btnr_, btnc_, btnl_, btnu_, btnd_; // rising edge detection
     always @(negedge resetn or posedge clk) begin
-        set <= 1'b0;
+        new_period[0] <= 0;
         if (!resetn) begin
-            cur_note <= 6'd28;
+            stored_notes[0] <= 0;
+            new_period[0] <= 0;
+//            stored_notes[1] <= 0;
+//            stored_notes[2] <= 0;
             volume <= 4'd0;
         end
-        else if (!btnr_ && btnr) begin
-            cur_note <= (cur_note < 6'd48) ? (cur_note + 1) : cur_note;
-            set <= 1'b1;
-        end
         else if (!btnl_ && btnl) begin
-            cur_note <= (cur_note > 6'd0) ? (cur_note - 1) : cur_note;
-            set <= 1'b1;
+            stored_notes[0] <= (note_off) ? 0 : c1scale[cur_note];
+            new_period[0] <= 1'b1;
         end
+//        else if (!btnc_ && btnc) begin
+//            stored_notes[1] <= c1scale[lowest_note];
+//        end
+//        else if (!btnr_ && btnr) begin
+//            stored_notes[2] <= c1scale[lowest_note];
+//        end
         else if (!btnu_ && btnu) begin
-            volume <= (volume < 3'd15) ? (volume + 1) : volume;
-            set <= 1'b1;
+            volume <= (volume < 4'd15) ? (volume + 1) : volume;
         end
         else if (!btnd_ && btnd) begin
-            volume <= (volume > 3'd0) ? (volume - 1) : volume;
-            set <= 1'b1;
+            volume <= (volume > 4'd0) ? (volume - 1) : volume;
         end
-        btnr_ <= btnr;
+//        btnr_ <= btnr;
+//        btnc_ <= btnc;
         btnl_ <= btnl;
         btnu_ <= btnu;
         btnd_ <= btnd;
+        
     end
 
-    // Note and octave calculation
-    reg [31:0] COUNTS_PER_INTERVAL = 32'd191113; // C5, default
-    reg [2:0] octave_note;
-    reg [2:0] octave_num;
-    reg [31:0] c1maj [6:0];
-
     // Audio Jack logic
-    wire [1:0] out_pwm_note;
-    wire [1:0] out_pwm_en;
-    wire [1:0] out_pwm;
-    freq_pwm fC(.clk(clk),
+    genvar i;
+    
+    wire [NUMCONCURRENT-1:0] out_pwm_note;
+    wire [NUMCONCURRENT-1:0] out_pwm;
+//    generate
+//    for (i = 0; i < NUMCONCURRENT; i = i+1) begin
+//        freq_pwm fN(.clk(clk),
+//                    .resetn(resetn),
+//                    .clks_per_period((stored_notes[i] >> 3)),    // octave 4
+//                    .volume(volume),
+//                    .out_pwm(out_pwm_note[i]));
+//    end
+//    endgenerate
+
+    freq_pwm fN(.clk(clk),
                 .resetn(resetn),
-                .set(set),
-                .clks_per_period((32'd3057805 >> 3)),
-                .volume(volume),
-                .out_pwm(out_pwm_note[1]));
-    freq_pwm fG(.clk(clk),
-                .resetn(resetn),
-                .set(set),
-                .clks_per_period((32'd2040840 >> 3)),
+                .new_period(new_period[0]),
+                .clks_per_period((stored_notes[0] >> octave_num)),
                 .volume(volume),
                 .out_pwm(out_pwm_note[0]));
-    assign out_pwm_en[1:0] = { swt[13], swt[6] };
-    assign out_pwm[1:0] = out_pwm_en[1:0] & out_pwm_note[1:0];
                 
     wire out_pwm_union;
-    assign out_pwm_union = out_pwm[0] | out_pwm[1];
+    assign out_pwm_union = |out_pwm_note;    // bitwise-OR everything
 
     assign AUD_PWM = (out_pwm_union) ? 1'bz : 1'b0;   // that's just how it works
     assign AUD_SD = swt[15];                    // enable
@@ -98,45 +133,23 @@ module small_piano(
     
 endmodule
 
-module freq_pwm(
-    input clk,
-    input resetn,
-    input set,
-    input [31:0] clks_per_period,
-    input [3:0] volume,
-    output reg out_pwm
+
+module msb_index_finder #(parameter WIDTH = 3) (
+    input wire [WIDTH-1:0] in,
+    output reg [$clog2(WIDTH)-1:0] msb_index,
+    output reg off
 );
-    // Audio Jack logic
-    //   clks_per_period: the period
-    //       period and freq determines pitch
-    //   sample: the portion of "1"
-    //       duty cycle (sample/period) determines volumn
-    reg [31:0] cur_period;
-    reg [31:0] sample;
-    reg [31:0] pwm_counter;
-    initial pwm_counter = 32'd0;
-
-    
-    always @(negedge resetn, posedge set, posedge clk) begin
-        if (!resetn) begin
-            pwm_counter <= 0;
-            sample <= 1;
-            cur_period <= 0;
-        end
-        else if (set) begin
-            cur_period <= clks_per_period;
-            sample <= (clks_per_period >> (15 - volume));
-        end
-        else if (pwm_counter >= cur_period-1) begin
-            pwm_counter <= 0;
-        end
-        else begin
-            pwm_counter <= pwm_counter + 1'b1;
+    reg [$clog2(WIDTH)-1:0] msb_index;
+    integer i;
+    always @(*) begin
+        msb_index = 0; 
+        off = 1;
+        for (i = WIDTH-1; i >= 0; i = i - 1) begin
+            if (in[i]) begin
+                msb_index = i;
+                off = 0;
+            end
         end
     end
-
-    always @(posedge clk) begin
-	    out_pwm <= (pwm_counter < sample);
-    end
-    
 endmodule
+
