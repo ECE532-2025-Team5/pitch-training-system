@@ -109,7 +109,7 @@ module small_piano(
         freq_pwm fN(.clk(clk),
                     .resetn(resetn),
                     .new_period(new_period[i]),
-                    .clks_per_period((stored_notes[i] >> octave_num)),    // octave 4
+                    .clks_per_period((stored_notes[i] >> octave_num)),
                     .volume(volume),
                     .out_pwm(out_pwm_note[i]));
     end
