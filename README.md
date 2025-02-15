@@ -8,9 +8,10 @@ Takes PWM audio signals. Project located in `./audio_synthesizer`.
 - Single note playing for any note on piano (adjusting period)
     - Piano notes in terms of period is documented in `./audio_synthesizer/piano_notes.xlsx`
 - Volumn adjustment (adjusting duty cycle)
+- Playing chords (multiple notes at once)
 
 ### TODO
-- Playing chords (multiple notes at once)
+- Packaging/custom IP with AXI interface
 
 ### Constraints
 - AUD_PWM: PWM driver for audio jack
