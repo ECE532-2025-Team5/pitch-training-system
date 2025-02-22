@@ -43,3 +43,10 @@ set_property -dict { PACKAGE_PIN D12   IOSTANDARD LVCMOS33 } [get_ports { AUD_SD
 
 [Digilent Nexys 4 DDR Keyboard Demo](https://github.com/Digilent/Nexys-4-DDR-Keyboard)
 
+
+## PS/2 Keyboard (via USB-A)
+
+### Done
+- Getting the keycode from each key in PS2 keyboard
+
+[PS/2 Keycodes](https://www.eecg.utoronto.ca/~pc/courses/241/DE1_SoC_cores/ps2/ps2.html#apkeycodes)
