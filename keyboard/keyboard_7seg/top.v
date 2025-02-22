@@ -25,7 +25,6 @@
 
 module top(
     input CLK100MHZ,
-    input BTNC,
     input PS2_CLK,
     input PS2_DATA,
     input CPU_RESETN,
