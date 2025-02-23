@@ -28,7 +28,7 @@ module keyboard_ps2(
     input PS2_CLK,
     input PS2_DATA,
     input CPU_RESETN,
-    output UART_TXD,
+//    output UART_TXD,
     output [6:0] SEG7_SEG,
     output [7:0] SEG7_AN,
     output SEG7_DP
@@ -77,26 +77,12 @@ module keyboard_ps2(
         .keycode(key_code),
         .ascii(ascii)
     );
-    
-    // 7seg select
-    reg [2:0] seg7id = 3'h7;
-    always @ (posedge new_key_pressed, negedge CPU_RESETN) begin
-        if (!CPU_RESETN) begin
-            seg7id <= 3'h7;
-        end
-        else if (key_code == `kb_KP_4 && seg7id < 'd7) begin
-            seg7id <= seg7id + 1'b1;
-        end
-        else if (key_code == `kb_KP_6 && seg7id > 'd0) begin
-            seg7id <= seg7id - 1'b1;
-        end
-    end
 
     seg7x8 sevenSegDisp(
         .clk(CLK100MHZ),
         .resetn(CPU_RESETN),
         .en(new_key_pressed),
-        .seg7id(seg7id),
+        .seg7id(3'h7),
         .ascii(ascii),
         .dp(SEG7_DP),
         .seg(SEG7_SEG[6:0]),
