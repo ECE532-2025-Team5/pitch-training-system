@@ -24,28 +24,22 @@
 
 
 module keyboard_ps2(
-    input CLK100MHZ,
-    input PS2_CLK,
-    input PS2_DATA,
-    input CPU_RESETN,
-//    output UART_TXD,
-    output [6:0] SEG7_SEG,
-    output [7:0] SEG7_AN,
-    output SEG7_DP
-    );
-    
-    reg CLK50MHZ=0;        
-    always @(posedge CLK100MHZ)begin
-        CLK50MHZ<=~CLK50MHZ;
-    end
+    input clk,
+    input ps2_clk,
+    input ps2_data,
+    input resetn,
+    output new_key,
+    output [7:0] key_code,
+    output [7:0] key_ascii
+);
 
-    wire [15:0] keycode;
+    wire [15:0] wkeycode;
     ps2 kb0(
-        .clk(CLK50MHZ),
-        .resetn(CPU_RESETN),
-        .ps2_clk(PS2_CLK),
-        .ps2_data(PS2_DATA),
-        .keycode(keycode)
+        .clk(clk),
+        .resetn(resetn),
+        .ps2_clk(ps2_clk),
+        .ps2_data(ps2_data),
+        .keycode(wkeycode)
     );
     
     // New Key Detection
@@ -53,10 +47,10 @@ module keyboard_ps2(
     reg key_released = 1'b1;         // Flag to track if key was released
     reg new_key_pressed;
 
-    wire [7:0] break_code = keycode[15:8];  // Break code part
-    wire [7:0] key_code = keycode[7:0];    // Make code part
+    wire [7:0] break_code = wkeycode[15:8];  // Break code part
+    assign key_code = wkeycode[7:0];    // Make code part
 
-    always @(posedge CLK50MHZ) begin
+    always @(posedge clk) begin
         new_key_pressed <= 1'b0; // Default low (ensures 1-cycle pulse)
 
         if (break_code == 8'hF0) begin
@@ -71,22 +65,13 @@ module keyboard_ps2(
         end
     end
     
+    assign new_key = new_key_pressed;
+    
     // PS/2 Code to ASCII Conversion
     wire [7:0] ascii;
     ps2_to_ascii conv0(
         .keycode(key_code),
-        .ascii(ascii)
-    );
-
-    seg7x8 sevenSegDisp(
-        .clk(CLK100MHZ),
-        .resetn(CPU_RESETN),
-        .en(new_key_pressed),
-        .seg7id(3'h7),
-        .ascii(ascii),
-        .dp(SEG7_DP),
-        .seg(SEG7_SEG[6:0]),
-        .an(SEG7_AN[7:0])
+        .ascii(key_ascii)
     );
      
 endmodule
