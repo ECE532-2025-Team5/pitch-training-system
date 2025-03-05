@@ -7,7 +7,8 @@ module keyboard_ps2(
     input resetn,
     output new_key,
     output [7:0] key_code,
-    output [7:0] key_ascii
+    output [7:0] key_ascii,
+    output reg key_released
 );
 
     wire [15:0] wkeycode;
@@ -21,7 +22,7 @@ module keyboard_ps2(
     
     // New Key Detection
     reg [7:0] prev_key_code = 8'b0;  // Stores last pressed keycode
-    reg key_released = 1'b1;         // Flag to track if key was released
+//    reg key_released = 1'b1;         // Flag to track if key was released
     reg new_key_pressed;
 
     wire [7:0] break_code = wkeycode[15:8];  // Break code part

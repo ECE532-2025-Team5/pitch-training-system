@@ -54,6 +54,7 @@ module small_piano(
     
     reg [3:0] volume;
     initial volume = 4'd0;
+    assign led[3:0] = volume;
     reg btnr_, btnc_, btnl_, btnu_, btnd_; // rising edge detection
     always @(negedge resetn or posedge clk) begin
         new_period[0] <= 0;
@@ -157,4 +158,3 @@ module msb_index_finder #(parameter WIDTH = 3) (
         end
     end
 endmodule
-
