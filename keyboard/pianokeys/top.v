@@ -261,22 +261,23 @@ module top(
     // piano keys
     wire [3:0] note_id_temp;
     reg [3:0] note_id;
-    piano_octave #(.C       (`kb_Z),
-                   .C_sharp (`kb_S),
-                   .D       (`kb_X),
-                   .D_sharp (`kb_D),
-                   .E       (`kb_C),
-                   .F       (`kb_V),
-                   .F_sharp (`kb_G),
-                   .G       (`kb_B),
-                   .G_sharp (`kb_H),
-                   .A       (`kb_N),
-                   .A_sharp (`kb_J),
-                   .B       (`kb_M)
-                  ) poct0 (
-                   .keycode(keycode),
-                   .piano_note(note_id_temp)
-                  );
+    kb2piano_octave #(
+        .C       (`kb_Z),
+        .C_sharp (`kb_S),
+        .D       (`kb_X),
+        .D_sharp (`kb_D),
+        .E       (`kb_C),
+        .F       (`kb_V),
+        .F_sharp (`kb_G),
+        .G       (`kb_B),
+        .G_sharp (`kb_H),
+        .A       (`kb_N),
+        .A_sharp (`kb_J),
+        .B       (`kb_M)
+    ) kb2poct (
+        .keycode(keycode),
+        .piano_note(note_id_temp)
+    );
                   
     reg prev_key_released;
     always @(posedge CLK100MHZ) begin
