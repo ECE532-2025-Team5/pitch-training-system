@@ -30,11 +30,13 @@ set_property -dict { PACKAGE_PIN D12   IOSTANDARD LVCMOS33 } [get_ports { AUD_SD
 
 ## 7 Segment Display
 
+Made a custom module to display all ASCII values. However if one only need to display hex values \[0-F\], you may use [reference 7seg module](https://github.com/Digilent/Nexys-4-DDR-Keyboard/blob/master/src/hdl/Seg_7_Display.v)
+
 ### Done
 - Writing ASCII values into each of the 8x 7-seg displays
 
 ### TODO
-- Packaging
+- storing 8 bit segment representation as inputs, then have module handle display logic
 
 ### Constraints
 - SEG7_SEG\[6:0\]: controls segments ABCDEFG of each 7seg (note: 0 = ON)
