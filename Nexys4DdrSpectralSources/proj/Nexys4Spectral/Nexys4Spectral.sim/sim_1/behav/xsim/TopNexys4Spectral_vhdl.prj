@@ -1,0 +1,27 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../../src/ip/blk_mem_gen_0/blk_mem_gen_0_sim_netlist.vhdl" \
+"../../../../../../src/ip/xfft_1/xfft_1_funcsim.vhdl" \
+"../../../../../../src/ip/xfft_1/xfft_1_sim_netlist.vhdl" \
+"../../../../../../src/ip/clk_wiz_0/clk_wiz_0_funcsim.vhdl" \
+"../../../../../../src/ip/clk_wiz_0/clk_wiz_0_sim_netlist.vhdl" \
+"../../../../../../src/hdl/DisplayDefinition.vhd" \
+"../../../../../../src/hdl/FftBlock.vhd" \
+"../../../../../../src/hdl/ImgCtrl.vhd" \
+"../../../../../../src/hdl/LedStringCtrl.vhd" \
+"../../../../../../src/hdl/VgaCtrl.vhd" \
+"../../../../../../src/hdl/sources_PDM_RefProj/new/allpass.vhd" \
+"../../../../../../src/hdl/sources_PDM_RefProj/new/audio_demo.vhd" \
+"../../../../../../src/others/ngc_PDM_RefProj/cic/cic.vhd" \
+"../../../../../../src/others/ngc_PDM_RefProj/clk_gen/clk_gen.vhd" \
+"../../../../../../src/hdl/sources_PDM_RefProj/new/comb.vhd" \
+"../../../../../../src/others/ngc_PDM_RefProj/hb_fir/hb_fir.vhd" \
+"../../../../../../src/hdl/sources_PDM_RefProj/new/hp_rc.vhd" \
+"../../../../../../src/hdl/led_controller.vhd" \
+"../../../../../../src/others/ngc_PDM_RefProj/lp_fir/lp_fir.vhd" \
+"../../../../../../src/others/ngc_PDM_RefProj/mul/mul.vhd" \
+"../../../../../../src/hdl/sources_PDM_RefProj/new/pdm_filter.vhd" \
+"../../../../../../src/hdl/TopNexys4Spectral.vhd" \
+
+# Do not sort compile order
+nosort

@@ -1,0 +1,7 @@
+0.6
+2018.3
+Mar 26 2019
+04:57:32
+W:/nexys4ddr_fft/Nexys4DdrSpectralSources/proj/7seg_test/7seg_test.sim/sim_1/behav/xsim/glbl.v,1544155481,verilog,,,,glbl,,,,,,,,
+W:/nexys4ddr_fft/Nexys4DdrSpectralSources/proj/7seg_test/7seg_test.srcs/sim_1/new/seg7_tb.v,1741632322,verilog,,,,seg7_tb,,,,,,,,
+W:/nexys4ddr_fft/Nexys4DdrSpectralSources/proj/Nexys4Spectral/Nexys4Spectral.srcs/sources_1/new/seg7.v,1741637673,verilog,,W:/nexys4ddr_fft/Nexys4DdrSpectralSources/proj/7seg_test/7seg_test.srcs/sim_1/new/seg7_tb.v,,bin2bcd;seg7Ctrl,,,,,,,,

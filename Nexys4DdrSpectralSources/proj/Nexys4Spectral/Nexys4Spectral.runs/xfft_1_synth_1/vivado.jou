@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Mon Mar 10 20:17:43 2025
+# Process ID: 6688
+# Current directory: E:/Nexys4DdrSpectralSources/proj/Nexys4Spectral/Nexys4Spectral.runs/xfft_1_synth_1
+# Command line: vivado.exe -log xfft_1.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source xfft_1.tcl
+# Log file: E:/Nexys4DdrSpectralSources/proj/Nexys4Spectral/Nexys4Spectral.runs/xfft_1_synth_1/xfft_1.vds
+# Journal file: E:/Nexys4DdrSpectralSources/proj/Nexys4Spectral/Nexys4Spectral.runs/xfft_1_synth_1\vivado.jou
+#-----------------------------------------------------------
+source xfft_1.tcl -notrace

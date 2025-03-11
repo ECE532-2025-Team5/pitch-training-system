@@ -1,0 +1,5 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "W:/nexys4ddr_fft/Nexys4DdrSpectralSources/proj/Nexys4Spectral/Nexys4Spectral.srcs/sources_1/new/seg7.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module bin2bcd
+INFO: [VRFC 10-311] analyzing module seg7Ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "W:/nexys4ddr_fft/Nexys4DdrSpectralSources/proj/7seg_test/7seg_test.srcs/sim_1/new/seg7_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module seg7_tb

@@ -1,0 +1,10 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../../Nexys4Spectral/Nexys4Spectral.srcs/sources_1/new/seg7.v" \
+"../../../../7seg_test.srcs/sim_1/new/seg7_tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
