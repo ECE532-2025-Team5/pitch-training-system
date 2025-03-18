@@ -3,9 +3,10 @@
 module seg7x8(
     input clk,
     input resetn,
-    input en,
-    input [2:0] seg7id,
-    input [7:0] ascii,
+//    input en,
+//    input [2:0] seg7id,
+//    input [7:0] ascii,
+    input [63:0] asciix8,
     output reg dp,
     output reg [6:0] seg,
     output reg [7:0] an
@@ -17,18 +18,21 @@ module seg7x8(
         if (!resetn) begin
             ascii_reg <= 64'h0;
         end
-        else if (en) begin
-            case (seg7id)
-                0: ascii_reg[8*0 +: 8] <= ascii;
-                1: ascii_reg[8*1 +: 8] <= ascii;
-                2: ascii_reg[8*2 +: 8] <= ascii;
-                3: ascii_reg[8*3 +: 8] <= ascii;
-                4: ascii_reg[8*4 +: 8] <= ascii;
-                5: ascii_reg[8*5 +: 8] <= ascii;
-                6: ascii_reg[8*6 +: 8] <= ascii;
-                7: ascii_reg[8*7 +: 8] <= ascii;
-                default: ascii_reg[8*0 +: 8] <= 0;
-            endcase
+//        else if (en) begin
+//            case (seg7id)
+//                0: ascii_reg[8*0 +: 8] <= ascii;
+//                1: ascii_reg[8*1 +: 8] <= ascii;
+//                2: ascii_reg[8*2 +: 8] <= ascii;
+//                3: ascii_reg[8*3 +: 8] <= ascii;
+//                4: ascii_reg[8*4 +: 8] <= ascii;
+//                5: ascii_reg[8*5 +: 8] <= ascii;
+//                6: ascii_reg[8*6 +: 8] <= ascii;
+//                7: ascii_reg[8*7 +: 8] <= ascii;
+//                default: ascii_reg[8*0 +: 8] <= 0;
+//            endcase
+//        end
+        else begin
+            ascii_reg <= asciix8;
         end
     end
 

@@ -34,13 +34,28 @@ module top(
     );
     
     assign LED[15:0] = SW[15:0];
+    wire resetn = SW[15];
+    wire [2:0] seg7id = SW[13:11];
+    wire [7:0] ascii = SW[7:0];
+    
+    reg [63:0] seg7_reg;
+    
+    always @ (posedge CLK100MHZ) begin
+        if (!resetn) begin
+            seg7_reg <= 64'h0;
+        end
+        else if (BTNC) begin
+            seg7_reg[8*seg7id +: 8] <= ascii;
+        end
+    end
 
     seg7x8 sevenSegDisp(
         .clk(CLK100MHZ),
-        .resetn(SW[15]),
-        .en(BTNC),
-        .seg7id(SW[13:11]),
-        .ascii(SW[7:0]),
+        .resetn(resetn),
+//        .en(BTNC),
+//        .seg7id(SW[13:11]),
+//        .ascii(SW[7:0]),
+        .asciix8(seg7_reg),
         .dp(SEG7_DP),
         .seg(SEG7_SEG[6:0]),
         .an(SEG7_AN[7:0])
