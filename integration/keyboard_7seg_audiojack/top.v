@@ -163,13 +163,24 @@ module top(
         end
     end
 
+    // store and update 7seg display
     wire seg7en = new_key_pressed | key_released;
+    reg [63:0] seg7_reg;
+    
+    always @ (posedge CLK100MHZ) begin
+        if (!CPU_RESETN) begin
+            seg7_reg <= 64'h0;
+        end
+        else if (seg7en) begin
+            seg7_reg[8*5 +: 8] <= piano_played_note;
+            seg7_reg[8*4 +: 8] <= piano_played_accidental;
+        end
+    end
+    
     seg7x8 sevenSegDisp(
         .clk(CLK100MHZ),
         .resetn(CPU_RESETN),
-        .en(seg7en),
-        .seg7id(3'd5),
-        .ascii(piano_played_note),
+        .asciix8(seg7_reg),
         .dp(SEG7_DP),
         .seg(SEG7_SEG[6:0]),
         .an(SEG7_AN[7:0])
