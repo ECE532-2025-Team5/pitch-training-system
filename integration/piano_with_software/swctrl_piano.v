@@ -79,8 +79,13 @@ module swctrl_piano (
   // Le Main Machine De State De Hardware
     reg modesel_freeplay, modesel_eartraining;
     reg [7:0] mode_char1, mode_char0;
+
     reg [7:0] microblaze_char1, microblaze_char0;
     reg [7:0] sung_note_note, sung_note_accidental;
+
+    reg [7:0] module_char1, module_char0;
+    reg [7:0] piano_played_note, piano_played_accidental;
+
     always @ (posedge CLK100MHZ) begin
         {mode_char1, mode_char0} <= {`ascii_SPACE, `ascii_SPACE};
         modesel_freeplay <= 1'b0;
@@ -90,17 +95,20 @@ module swctrl_piano (
             2'd0: begin // Home Screen
                 {mode_char1, mode_char0} <= {`ascii_H, `ascii_S};
                 {microblaze_char1, microblaze_char0} <= {`ascii_SPACE, `ascii_SPACE};
+                {module_char1, module_char0} <= {`ascii_SPACE, `ascii_SPACE};
                 end
 
             2'd1: begin // Ear Training
                 {mode_char1, mode_char0} <= {`ascii_E, `ascii_T};
                 {microblaze_char1, microblaze_char0} <= {`ascii_QMARK, `ascii_QMARK};
+                {module_char1, module_char0} <= {piano_played_note, piano_played_accidental};
                 modesel_eartraining <= 1'b1;
                 end
 
             2'd2: begin // Free Play
                 {mode_char1, mode_char0} <= {`ascii_F, `ascii_P};
                 {microblaze_char1, microblaze_char0} <= {sung_note_note, sung_note_accidental};
+                {module_char1, module_char0} <= {piano_played_note, piano_played_accidental};
                 modesel_freeplay <= 1'b1;
                 end
 
@@ -166,8 +174,29 @@ module swctrl_piano (
     wire gated_eartraining_pwm = eartraining_pwm & modesel_eartraining;
 
     assign AUD_PWM = (gated_freeplay_pwm | gated_eartraining_pwm) ? 1'bz : 1'b0;
+
+    //     // dummy 400Hz
+    //     reg pwm_400mhz;
+    //     reg [17:0] counter_400mhz;
+    //     initial pwm_400mhz = 0;
+    //     initial counter_400mhz = 'd0;
+    //     always @ (posedge CLK100MHZ) begin
+    //         if (counter_400mhz == 'd125000) begin
+    //             counter_400mhz <= 'd0;
+    //             pwm_400mhz <= ~pwm_400mhz;
+    //         end
+    //         else begin
+    //             pwm_400mhz <= pwm_400mhz;
+    //             counter_400mhz <= counter_400mhz + 1;
+    //         end
+    //     end
+        
+    // wire gated_400mhz_pwm = pwm_400mhz & modesel_freeplay;
+    // assign AUD_PWM = (gated_400mhz_pwm | gated_eartraining_pwm) ? 1'bz : 1'b0;
+
     // assign AUD_SD = freeplay_sd | eartraining_sd;
     assign AUD_SD = play_en;
+    assign LED[15] = AUD_SD & modesel_freeplay;
 
 /* Piano */
     // piano_note_id
@@ -200,7 +229,7 @@ module swctrl_piano (
         .vol_down(BTND),
         .AUD_SD(),  // AUD_SD
         .AUD_PWM(freeplay_pwm),
-        .LED(LED),
+        .LED(LED[14:0]),
         .kb_ascii(),
         .piano_played_octid(piano_note_octid)
     );
@@ -230,7 +259,7 @@ module swctrl_piano (
         32'd2886184,    // C#
         32'd3057805 };  // C
     
-    wire [31:0] play_note_base_clks_per_period0 = BASE_CLKS_PER_PERIOD[12*(play_note_octid0-1) +: 32];
+    wire [31:0] play_note_base_clks_per_period0 = BASE_CLKS_PER_PERIOD[32*(play_note_octid0-1) +: 32];
 
   // Ear Training Volume
     reg [3:0] et_volume;
@@ -269,7 +298,7 @@ module swctrl_piano (
                 prev_clks_per_period0 <= 32'b0;
             end
             else begin
-                update_period  <= (play_note_clks_per_period0 != prev_clks_per_period0);
+                update_period <= (play_note_clks_per_period0 != prev_clks_per_period0);
                 prev_clks_per_period0 <= play_note_clks_per_period0;
             end
         end
@@ -296,8 +325,6 @@ module swctrl_piano (
     reg [63:0] seg7_reg;
 
   // 7 seg config, display piano note
-    reg [7:0] piano_played_note;
-    reg [7:0] piano_played_accidental;
     always @ (*) begin
         case(piano_note_octid)
             'd1: begin // C
@@ -356,7 +383,7 @@ module swctrl_piano (
         endcase
     end
 
-    // 7 seg config, display piano note
+    // 7 seg config, display sung note
     always @ (*) begin
         case(sung_note_octid)
             'd1: begin // C
