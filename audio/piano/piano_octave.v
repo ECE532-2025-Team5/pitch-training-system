@@ -67,28 +67,7 @@ module piano_octave(
                 
     wire out_pwm_union;
     assign out_pwm_union = |out_pwm;    // bitwise-OR everything
-
-    // dummy 500Hz
-        reg pwm_500hz;
-        reg [17:0] counter_500hz;
-        initial pwm_500hz = 0;
-        initial counter_500hz = 'd0;
-        always @ (posedge clk) begin
-            if (counter_500hz == 'd125000) begin
-                counter_500hz <= 'd0;
-                pwm_500hz <= ~pwm_500hz;
-            end
-            else begin
-                pwm_500hz <= pwm_500hz;
-                counter_500hz <= counter_500hz + 1;
-            end
-        end
-        
-    // wire gated_500hz_pwm = pwm_500hz & play_en;
-    wire gated_500hz_pwm = pwm_500hz;
-
-    assign aud_pwm = (gated_500hz_pwm) ? 1'bz : 1'b0;   // that's just how it works
-    // assign aud_pwm = (out_pwm_union) ? 1'bz : 1'b0;   // that's just how it works
+    assign aud_pwm = (out_pwm_union) ? 1'b1 : 1'b0;   // that's just how it works
     assign aud_sd = play_en;
     
 endmodule

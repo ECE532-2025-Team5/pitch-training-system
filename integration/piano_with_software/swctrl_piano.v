@@ -175,28 +175,8 @@ module swctrl_piano (
 
     assign AUD_PWM = (gated_freeplay_pwm | gated_eartraining_pwm) ? 1'bz : 1'b0;
 
-    //     // dummy 400Hz
-    //     reg pwm_400mhz;
-    //     reg [17:0] counter_400mhz;
-    //     initial pwm_400mhz = 0;
-    //     initial counter_400mhz = 'd0;
-    //     always @ (posedge CLK100MHZ) begin
-    //         if (counter_400mhz == 'd125000) begin
-    //             counter_400mhz <= 'd0;
-    //             pwm_400mhz <= ~pwm_400mhz;
-    //         end
-    //         else begin
-    //             pwm_400mhz <= pwm_400mhz;
-    //             counter_400mhz <= counter_400mhz + 1;
-    //         end
-    //     end
-        
-    // wire gated_400mhz_pwm = pwm_400mhz & modesel_freeplay;
-    // assign AUD_PWM = (gated_400mhz_pwm | gated_eartraining_pwm) ? 1'bz : 1'b0;
-
-    // assign AUD_SD = freeplay_sd | eartraining_sd;
-    assign AUD_SD = play_en;
-    assign LED[15] = AUD_SD & modesel_freeplay;
+    assign AUD_SD = freeplay_sd | eartraining_sd;
+    assign LED[15] = AUD_SD;
 
 /* Piano */
     // piano_note_id
@@ -227,7 +207,7 @@ module swctrl_piano (
         .octave(octave),
         .vol_up(BTNU),
         .vol_down(BTND),
-        .AUD_SD(),  // AUD_SD
+        .AUD_SD(freeplay_sd),
         .AUD_PWM(freeplay_pwm),
         .LED(LED[14:0]),
         .kb_ascii(),
@@ -317,6 +297,7 @@ module swctrl_piano (
     // Only output when key pressed
     wire play_note_pwm_union = play_note_pwm0;
     assign eartraining_pwm = (eartraining_play_chord) ? play_note_pwm_union : 1'b0;
+    assign eartraining_sd = play_en;
 
 
 /* 7 SEG */
@@ -462,8 +443,8 @@ module swctrl_piano (
             seg7_reg[8*2 +: 8] <= microblaze_char0;
 
             // played note, from keyboard
-            seg7_reg[8*1 +: 8] <= piano_played_note;
-            seg7_reg[8*0 +: 8] <= piano_played_accidental;
+            seg7_reg[8*1 +: 8] <= module_char1;
+            seg7_reg[8*0 +: 8] <= module_char0;
         end
     end
 

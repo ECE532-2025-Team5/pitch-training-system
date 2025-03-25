@@ -6,7 +6,6 @@ module piano(
     input PS2_CLK,
     input PS2_DATA,
 
-    // input [15:12] SW,
     input play_en,
     input [2:0] octave,
 
@@ -16,17 +15,9 @@ module piano(
     output AUD_SD,
     output AUD_PWM,
     output [15:0] LED,
-    // output UART_TXD,
-    // output [6:0] SEG7_SEG,
-    // output [7:0] SEG7_AN,
-    // output SEG7_DP,
     output [7:0] kb_ascii,
     output reg [3:0] piano_played_octid
-    // output new_played_key?
 );
-    // Input
-    // wire play_en = SW[15];
-    // wire [2:0] octave = SW[14:12];
     
     // Debug Output
     wire led_sec_counter;
@@ -91,66 +82,6 @@ module piano(
             piano_played_octid <= 4'h0;
         end
     end
-
-    // reg [7:0] piano_played_note;
-    // reg [7:0] piano_played_accidental;
-    // always @ (*) begin
-    //     case(note_id)
-    //         'd1: begin // C
-    //             piano_played_note <= `ascii_C;
-    //             piano_played_accidental <= `ascii_SPACE;
-    //             end
-    //         'd2: begin // C#
-    //             piano_played_note <= `ascii_C;
-    //             piano_played_accidental <= `ascii_SQT;
-    //             end
-    //         'd3: begin // D
-    //             piano_played_note <= `ascii_D;
-    //             piano_played_accidental <= `ascii_SPACE;
-    //             end
-    //         'd4: begin // D#
-    //             piano_played_note <= `ascii_D;
-    //             piano_played_accidental <= `ascii_SQT;
-    //             end
-    //         'd5: begin // E
-    //             piano_played_note <= `ascii_E;
-    //             piano_played_accidental <= `ascii_SPACE;
-    //             end
-    //         'd6: begin // F
-    //             piano_played_note <= `ascii_F;
-    //             piano_played_accidental <= `ascii_SPACE;
-    //             end
-    //         'd7: begin // F#
-    //             piano_played_note <= `ascii_F;
-    //             piano_played_accidental <= `ascii_SQT;
-    //             end
-    //         'd8: begin // G
-    //             piano_played_note <= `ascii_G;
-    //             piano_played_accidental <= `ascii_SPACE;
-    //             end
-    //         'd9: begin // G#
-    //             piano_played_note <= `ascii_G;
-    //             piano_played_accidental <= `ascii_SQT;
-    //             end
-    //         'd10: begin // A
-    //             piano_played_note <= `ascii_A;
-    //             piano_played_accidental <= `ascii_SPACE;
-    //             end
-    //         'd11: begin // A#
-    //             piano_played_note <= `ascii_A;
-    //             piano_played_accidental <= `ascii_SQT;
-    //             end
-    //         'd12: begin // B
-    //             piano_played_note <= `ascii_B;
-    //             piano_played_accidental <= `ascii_SPACE;
-    //             end
-            
-    //         default: begin
-    //             piano_played_note <= `ascii_SPACE;
-    //             piano_played_accidental <= `ascii_SPACE;
-    //         end
-    //     endcase
-    // end
     
     // store key statuses
     reg [12:0] key_status; // index 0 is unused
@@ -167,29 +98,6 @@ module piano(
             key_status[piano_played_octid] <= 1'b0;
         end
     end
-
-    // // store and update 7seg display
-    // wire seg7en = new_key_pressed | key_released;
-    // reg [63:0] seg7_reg;
-    
-    // always @ (posedge CLK100MHZ) begin
-    //     if (!CPU_RESETN) begin
-    //         seg7_reg <= 64'h0;
-    //     end
-    //     else if (seg7en) begin
-    //         seg7_reg[8*5 +: 8] <= piano_played_note;
-    //         seg7_reg[8*4 +: 8] <= piano_played_accidental;
-    //     end
-    // end
-    
-    // seg7x8 sevenSegDisp(
-    //     .clk(CLK100MHZ),
-    //     .resetn(CPU_RESETN),
-    //     .asciix8(seg7_reg),
-    //     .dp(SEG7_DP),
-    //     .seg(SEG7_SEG[6:0]),
-    //     .an(SEG7_AN[7:0])
-    // );
     
     piano_octave poct(
         .clk(CLK100MHZ),
@@ -203,7 +111,7 @@ module piano(
         .aud_pwm(AUD_PWM),
         .volume_monitor(led_volume)
     );
-    
+
     // // debug blink
     // // Show 100 MHz clock is working on led[15]
     // reg [32:0] second_counter;
