@@ -131,7 +131,8 @@ module swctrl_piano (
     end
 
 /* Compare */
-    wire [7:0] compare_symbol = (compare_correct) ? `ascii_O : `ascii_MINUS;
+//    wire [7:0] compare_symbol = (compare_correct) ? `ascii_O : `ascii_MINUS;
+    wire [7:0] compare_symbol = (compare_correct) ? `ascii_6 : `ascii_MINUS;
 
 /* User Sung Note */
     // convert sung_note spreadsheet_id to octave_id (C, C#, ... B)
@@ -431,20 +432,20 @@ module swctrl_piano (
             seg7_reg <= 64'h0;
         end
         else if (seg7en) begin
-            // mode/controls display
-            seg7_reg[8*7 +: 8] <= mode_char1;
-            seg7_reg[8*6 +: 8] <= mode_char0;
-
-            // display comparison
-            seg7_reg[8*4 +: 8] <= compare_symbol;
-
             // sung note, from microblaze
-            seg7_reg[8*3 +: 8] <= microblaze_char1;
-            seg7_reg[8*2 +: 8] <= microblaze_char0;
+            seg7_reg[8*7 +: 8] <= microblaze_char1;
+            seg7_reg[8*6 +: 8] <= microblaze_char0;
 
             // played note, from keyboard
-            seg7_reg[8*1 +: 8] <= module_char1;
-            seg7_reg[8*0 +: 8] <= module_char0;
+            seg7_reg[8*5 +: 8] <= module_char1;
+            seg7_reg[8*4 +: 8] <= module_char0;
+
+            // display comparison
+            seg7_reg[8*3 +: 8] <= compare_symbol;
+                        
+            // mode/controls display
+            seg7_reg[8*1 +: 8] <= mode_char1;
+            seg7_reg[8*0 +: 8] <= mode_char0;
         end
     end
 
