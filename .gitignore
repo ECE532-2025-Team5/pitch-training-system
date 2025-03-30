@@ -1,7 +1,0 @@
-# Exclude Vivado project files
-*.cache
-*.hw
-*.ip_user_files
-*.runs
-*.jou
-*.log
