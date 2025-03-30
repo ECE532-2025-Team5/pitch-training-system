@@ -49,11 +49,9 @@
 #include "platform.h"
 #include "xil_printf.h"
 
-volatile unsigned int* led = (unsigned int*) XPAR_GPIO_LED_BASEADDR;
-volatile unsigned int* swt = (unsigned int*) XPAR_GPIO_SW_BASEADDR;
-
-volatile unsigned int* microblazesim 	= (unsigned int*) 0x40000000;
-volatile unsigned int* peripherals 		= (unsigned int*) 0x40010000;
+volatile unsigned int* microblazesim 		= (unsigned int*) XPAR_AXI_GPIO_MICROBLAZESIM_BASEADDR;
+volatile unsigned int* peripherals_gpioin 	= (unsigned int*) XPAR_AXI_GPIO_PERIPHERALS_BASEADDR;
+volatile unsigned int* peripherals_gpioout 	= (unsigned int*) (XPAR_AXI_GPIO_PERIPHERALS_BASEADDR + 0x8);
 
 int main()
 {
@@ -108,16 +106,22 @@ int main()
 		microblaze_sung_note = (microblazesim_in >> 6)  & 0xF;
 		simulated_cmp 		 = (microblazesim_in >> 11) & 0x1;
 		playen_oct_oct_oct 	 = (microblazesim_in >> 12) & 0xF;
-		xil_printf("pooo[%d] cmp[%d] sung[%d] gen[%d] mode[%d]\n", playen_oct_oct_oct, simulated_cmp, microblaze_sung_note, generated_note0, simulated_mode_sel);
+//		xil_printf("pooo[%d] cmp[%d] sung[%d] gen[%d] mode[%d]\n", playen_oct_oct_oct, simulated_cmp, microblaze_sung_note, generated_note0, simulated_mode_sel);
 
 
-//    	user_controls = (microblazesim_in) & 0xF;
-//    	piano_note_id = (microblazesim_in >> 4) & 0x7F;
+//    	swctrl_piano_in = *peripherals_gpioin;
+//    	user_controls = (swctrl_piano_in) & 0xF;
+//    	piano_note_id = (swctrl_piano_in >> 4) & 0x7F;
 //    	xil_printf("piano: %d ----- user_controls: %d\n", piano_note_id, user_controls);
+//    	xil_printf("input: %x\n", swctrl_piano_in);
+
 
     	// peripheral (input)
+    	swctrl_piano_out = 0;
+    	swctrl_piano_out |= ((simulated_mode_sel) & 0x3);
+    	*peripherals_gpioout = swctrl_piano_out;
+		xil_printf("swctrl_piano_out[%d]\n", swctrl_piano_out);
 
-//    	*led = *swt;
     }
 
     cleanup_platform();

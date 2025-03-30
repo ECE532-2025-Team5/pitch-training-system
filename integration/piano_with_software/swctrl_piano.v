@@ -113,6 +113,9 @@ module swctrl_piano (
                 end
 
             default: begin
+                {mode_char1, mode_char0} <= {`ascii_SPACE, `ascii_SPACE};
+                {microblaze_char1, microblaze_char0} <= {`ascii_SPACE, `ascii_SPACE};
+                {module_char1, module_char0} <= {`ascii_SPACE, `ascii_SPACE};
                 end
         endcase
     end
@@ -224,23 +227,27 @@ module swctrl_piano (
     // wire [3:0] play_note_octid2 = play_note_id_2 - play_range_offset;
 
     wire eartraining_play_chord = play_en;  // debug
-
-  // get play_note_# clks_per_period
-    parameter [32*12-1:0] BASE_CLKS_PER_PERIOD = {     
-        32'd1619816,    // B
-        32'd1716135,    // A#
-        32'd1818182,    // A
-        32'd1926296,    // G#
-        32'd2040840,    // G
-        32'd2162195,    // F#                                               
-        32'd2290765,    // F
-        32'd2426982,    // E
-        32'd2571298,    // D#
-        32'd2724194,    // D
-        32'd2886184,    // C#
-        32'd3057805 };  // C
+        
+    reg [31:0] c1scale [12:0];
+    always @* begin
+        case (play_note_octid0)
+            1:  c1scale[1]  = 32'd3057805;   // C1
+            2:  c1scale[2]  = 32'd2886184;   // C#1
+            3:  c1scale[3]  = 32'd2724194;   // D1
+            4:  c1scale[4]  = 32'd2571298;   // D#1
+            5:  c1scale[5]  = 32'd2426982;   // E1
+            6:  c1scale[6]  = 32'd2290765;   // F1
+            7:  c1scale[7]  = 32'd2162195;   // F#1
+            8:  c1scale[8]  = 32'd2040840;   // G1
+            9:  c1scale[9]  = 32'd1926296;   // G#1
+            10: c1scale[10]  = 32'd1818182;   // A1
+            11: c1scale[11] = 32'd1716135;   // A#1
+            12: c1scale[12] = 32'd1619816;   // B1
+            default: c1scale[0] = 32'd0;
+         endcase
+    end
     
-    wire [31:0] play_note_base_clks_per_period0 = BASE_CLKS_PER_PERIOD[32*(play_note_octid0-1) +: 32];
+    wire [31:0] play_note_base_clks_per_period0 = c1scale[play_note_octid0];
 
   // Ear Training Volume
     reg [3:0] et_volume;
