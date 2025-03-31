@@ -50,8 +50,8 @@
 #include "xil_printf.h"
 
 volatile unsigned int* microblazesim 		= (unsigned int*) XPAR_AXI_GPIO_MICROBLAZESIM_BASEADDR;
-volatile unsigned int* peripherals_gpioin 	= (unsigned int*) XPAR_AXI_GPIO_PERIPHERALS_BASEADDR;
-volatile unsigned int* peripherals_gpioout 	= (unsigned int*) (XPAR_AXI_GPIO_PERIPHERALS_BASEADDR + 0x8);
+volatile unsigned int* peripherals_pr2mb 	= (unsigned int*) XPAR_AXI_GPIO_PERIPHERALS_BASEADDR;
+volatile unsigned int* peripherals_mb2pr 	= (unsigned int*) (XPAR_AXI_GPIO_PERIPHERALS_BASEADDR + 0x8);
 
 int main()
 {
@@ -93,9 +93,6 @@ int main()
     //    	    // bit 31
     uint32_t swctrl_piano_out;
     uint8_t compare_correct, sung_note_id, play_note_id2, play_note_id1, play_note_id0, play_note_num, mode_sel;
-    play_note_id2 = 0;
-    play_note_id1 = 0;
-    play_note_num = 1;
 
     while (1) {
 
@@ -109,18 +106,32 @@ int main()
 //		xil_printf("pooo[%d] cmp[%d] sung[%d] gen[%d] mode[%d]\n", playen_oct_oct_oct, simulated_cmp, microblaze_sung_note, generated_note0, simulated_mode_sel);
 
 
-//    	swctrl_piano_in = *peripherals_gpioin;
-//    	user_controls = (swctrl_piano_in) & 0xF;
-//    	piano_note_id = (swctrl_piano_in >> 4) & 0x7F;
+    	swctrl_piano_in = *peripherals_pr2mb;
+    	user_controls = (swctrl_piano_in) & 0xF;
+    	piano_note_id = (swctrl_piano_in >> 4) & 0x7F;
 //    	xil_printf("piano: %d ----- user_controls: %d\n", piano_note_id, user_controls);
 //    	xil_printf("input: %x\n", swctrl_piano_in);
 
 
     	// peripheral (input)
+    	mode_sel 		= simulated_mode_sel;
+        play_note_num 	= 1;
+    	play_note_id0 	= generated_note0 + 27;
+    	play_note_id1 	= 0;
+    	play_note_id2 	= 0;
+    	sung_note_id 	= microblaze_sung_note + 28;
+    	compare_correct = simulated_cmp;
+
     	swctrl_piano_out = 0;
-    	swctrl_piano_out |= ((simulated_mode_sel) & 0x3);
-    	*peripherals_gpioout = swctrl_piano_out;
-		xil_printf("swctrl_piano_out[%d]\n", swctrl_piano_out);
+    	swctrl_piano_out |= ((mode_sel 			& 0x3 ) << 0);
+    	swctrl_piano_out |= ((play_note_num		& 0x3 ) << 2);
+    	swctrl_piano_out |= ((play_note_id0 	& 0x7F) << 4);
+    	swctrl_piano_out |= ((play_note_id1 	& 0x7F) << 11);
+    	swctrl_piano_out |= ((play_note_id2 	& 0x7F) << 18);
+    	swctrl_piano_out |= ((sung_note_id 		& 0x3F) << 25);
+    	swctrl_piano_out |= ((compare_correct	& 0x1 ) << 31);
+    	*peripherals_mb2pr = swctrl_piano_out;
+		xil_printf("cmp[%d] swctrl_piano_out[%x]\n", simulated_cmp, swctrl_piano_out);
 
     }
 
