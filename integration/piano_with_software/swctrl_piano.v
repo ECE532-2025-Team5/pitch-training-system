@@ -177,10 +177,11 @@ module swctrl_piano (
     wire gated_freeplay_pwm = freeplay_pwm & modesel_freeplay;
     wire gated_eartraining_pwm = eartraining_pwm & modesel_eartraining;
 
-    assign AUD_PWM = (gated_freeplay_pwm | gated_eartraining_pwm) ? 1'bz : 1'b0;
+    assign AUD_PWM = (gated_freeplay_pwm | gated_eartraining_pwm) ? 1'b1 : 1'b0;
 
     assign AUD_SD = freeplay_sd | eartraining_sd;
     assign LED[15] = AUD_SD;
+    assign LED[0] = AUD_PWM;    // if no audio out, it should be dark, otherwise faint light
 
 /* Piano */
     // piano_note_id
@@ -213,7 +214,7 @@ module swctrl_piano (
         .vol_down(BTND),
         .AUD_SD(freeplay_sd),
         .AUD_PWM(freeplay_pwm),
-        .LED(LED[14:0]),
+        .LED({LED[14:12], 12'b0}),
         .kb_ascii(),
         .piano_played_octid(piano_note_octid)
     );
