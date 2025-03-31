@@ -105,6 +105,7 @@
 `define kb_FSLH 8'h4A
 
 /* ASCII Codes */
+`define ascii_ENTER 8'h0D
 `define ascii_SPACE 8'h20
 `define ascii_EXCL 8'h21
 `define ascii_DQT 8'h22
@@ -256,6 +257,7 @@ module ps2_to_ascii (
             `kb_DOT: ascii <= `ascii_DOT;
             `kb_FSLH: ascii <= `ascii_FSLH;
             `kb_SPACE: ascii <= `ascii_SPACE;
+            `kb_ENTER: ascii <= `ascii_ENTER;
             
             // `kb_APPS: // No matching ascii key
             // `kb_BKSP: // No matching ascii key

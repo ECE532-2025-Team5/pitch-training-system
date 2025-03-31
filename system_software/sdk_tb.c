@@ -53,11 +53,24 @@ volatile unsigned int* microblazesim 		= (unsigned int*) XPAR_AXI_GPIO_MICROBLAZ
 volatile unsigned int* peripherals_pr2mb 	= (unsigned int*) XPAR_AXI_GPIO_PERIPHERALS_BASEADDR;
 volatile unsigned int* peripherals_mb2pr 	= (unsigned int*) (XPAR_AXI_GPIO_PERIPHERALS_BASEADDR + 0x8);
 
+/* USER CONTROLS */
+#define MODE_HOMESCREEN 0
+#define MODE_EARTRAINING 1
+#define MODE_FREEPLAY 2
+
+#define CTRL_NOP 0
+#define CTRL_GOHOME 1
+#define CTRL_GOEARTRAIN 2
+#define CTRL_GOFREEPLAY 3
+#define CTRL_PLAYCHORD 4
+#define CTRL_PIANOINPUT 5
+#define CTRL_ETENTER 6
+
 int main()
 {
     init_platform();
 
-    print("Hello World\n\r");
+    print("WELCOME TO PITCH TRAINING DEVICE\n\r");
 
 // Encode / Decode
 
@@ -94,14 +107,17 @@ int main()
     uint32_t swctrl_piano_out;
     uint8_t compare_correct, sung_note_id, play_note_id2, play_note_id1, play_note_id0, play_note_num, mode_sel;
 
+    uint8_t mb_mode = 0;
+    uint8_t microblaze_cmp_note;
+
     while (1) {
 
     	// simulation (output)
     	microblazesim_in = *microblazesim;
-    	simulated_mode_sel 	 = (microblazesim_in >> 0)  & 0x3;
+    	// simulated_mode_sel 	 = (microblazesim_in >> 0)  & 0x3;
 		generated_note0 	 = (microblazesim_in >> 2)  & 0xF;
 		microblaze_sung_note = (microblazesim_in >> 6)  & 0xF;
-		simulated_cmp 		 = (microblazesim_in >> 11) & 0x1;
+		// simulated_cmp 		 = (microblazesim_in >> 11) & 0x1;
 		playen_oct_oct_oct 	 = (microblazesim_in >> 12) & 0xF;
 //		xil_printf("pooo[%d] cmp[%d] sung[%d] gen[%d] mode[%d]\n", playen_oct_oct_oct, simulated_cmp, microblaze_sung_note, generated_note0, simulated_mode_sel);
 
@@ -109,18 +125,61 @@ int main()
     	swctrl_piano_in = *peripherals_pr2mb;
     	user_controls = (swctrl_piano_in) & 0xF;
     	piano_note_id = (swctrl_piano_in >> 4) & 0x7F;
-//    	xil_printf("piano: %d ----- user_controls: %d\n", piano_note_id, user_controls);
+    	// xil_printf("piano: %d ----- user_controls: %d\n", piano_note_id, user_controls);
 //    	xil_printf("input: %x\n", swctrl_piano_in);
 
 
+        // Microblaze state logic
+        if (mb_mode == MODE_HOMESCREEN) {
+            if (user_controls == CTRL_GOEARTRAIN) {
+                mb_mode = MODE_EARTRAINING;
+                xil_printf("MODE CHANGE: EAR TRAINING -----\n");
+            } else if (user_controls == CTRL_GOFREEPLAY) {
+                mb_mode = MODE_FREEPLAY;
+                xil_printf("MODE CHANGE: FREE PLAY --------\n");
+            }
+
+        } else if (mb_mode == MODE_EARTRAINING) {
+            if (user_controls == CTRL_GOHOME) {
+                mb_mode = MODE_HOMESCREEN;
+                xil_printf("MODE CHANGE: HOME SCREEN ------\n");
+
+            } else if (user_controls == CTRL_PLAYCHORD) {
+                xil_printf("    play chord\n");
+
+            } else if (user_controls == CTRL_ETENTER) {
+                xil_printf("    next round\n");
+
+            } else if (user_controls == CTRL_PIANOINPUT) {
+                xil_printf("    >> piano %d <<\n", piano_note_id);
+            }
+
+        } else if (mb_mode == MODE_FREEPLAY) {
+            if (user_controls == CTRL_GOHOME) {
+                mb_mode = MODE_HOMESCREEN;
+                xil_printf("MODE CHANGE: HOME SCREEN ------\n");
+
+            } else if (user_controls == CTRL_PIANOINPUT) {
+                xil_printf("    >> piano %d <<\n", piano_note_id);
+            }
+        }
+
     	// peripheral (input)
-    	mode_sel 		= simulated_mode_sel;
+    	mode_sel 		= mb_mode;
         play_note_num 	= 1;
     	play_note_id0 	= generated_note0 + 27;
     	play_note_id1 	= 0;
     	play_note_id2 	= 0;
     	sung_note_id 	= microblaze_sung_note + 28;
-    	compare_correct = simulated_cmp;
+
+        if (mb_mode == MODE_EARTRAINING) {
+            microblaze_cmp_note = play_note_id0;
+        } else if (mb_mode == MODE_FREEPLAY) {
+            microblaze_cmp_note = sung_note_id;
+        } else {
+            microblaze_cmp_note = 0;
+        }
+    	compare_correct = (piano_note_id == microblaze_cmp_note);
 
     	swctrl_piano_out = 0;
     	swctrl_piano_out |= ((mode_sel 			& 0x3 ) << 0);
@@ -131,8 +190,7 @@ int main()
     	swctrl_piano_out |= ((sung_note_id 		& 0x3F) << 25);
     	swctrl_piano_out |= ((compare_correct	& 0x1 ) << 31);
     	*peripherals_mb2pr = swctrl_piano_out;
-		xil_printf("cmp[%d] swctrl_piano_out[%x]\n", simulated_cmp, swctrl_piano_out);
-
+//		xil_printf("cmp[%d] swctrl_piano_out[%x]\n", simulated_cmp, swctrl_piano_out);
     }
 
     cleanup_platform();

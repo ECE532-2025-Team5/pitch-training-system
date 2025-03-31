@@ -25,7 +25,8 @@ module piano(
     wire [11:0] led_key_status;
     assign LED[15] = led_sec_counter;
     assign LED[14:12] = led_volume[3:1];
-    assign LED[11:0] = led_key_status;
+//    assign LED[11:0] = led_key_status;
+//    assign LED[7:0] = kb_ascii[7:0];
     
     reg CLK50MHZ=0;        
     always @(posedge CLK100MHZ)begin

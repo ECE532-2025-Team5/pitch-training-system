@@ -60,7 +60,7 @@ module swctrl_piano (
     
     // AXI_GPIO outputs [microblaze <- module]
     // bit 0
-    wire [3:0] user_controls;   // 16 controls bits available for keyboard software controls
+    reg [3:0] user_controls;   // 16 controls bits available for keyboard software controls
     wire [6:0] piano_note_id;   // piano note most recently played
     // bit 11
 
@@ -132,6 +132,70 @@ module swctrl_piano (
 
         prev_mode <= mode_sel; // Update previous data every cycle
     end
+    
+/* Keyboard User Controls */
+  // keyboard to user controls conversion logic
+    reg [3:0] prev_ctrl;
+    wire [7:0] kbctrl_ascii;
+    assign LED[9:2] = kbctrl_ascii; // debug
+
+    localparam  CTRL_NOP = 4'd0,
+                CTRL_GOHOME = 4'd1, 
+                CTRL_GOEARTRAIN = 4'd2,
+                CTRL_GOFREEPLAY = 4'd3,
+                CTRL_PLAYCHORD = 4'd4,
+                CTRL_PIANOINPUT = 4'd5,
+                CTRL_ETENTER = 4'd6;
+
+    always @(posedge CLK100MHZ) begin
+        user_controls <= CTRL_NOP;
+
+        if (prev_ctrl == CTRL_NOP) begin    // user controls only changes for 1 cycle
+            case(mode_sel)
+                2'd0: begin // Home Screen
+                    if (kbctrl_ascii == `ascii_1) begin
+                        user_controls <= CTRL_GOEARTRAIN;
+                    end
+                    else if (kbctrl_ascii == `ascii_2) begin
+                        user_controls <= CTRL_GOFREEPLAY;
+                    end
+                    end // case home screen
+                    
+                2'd1: begin // Ear Training
+                    if (kbctrl_ascii == `ascii_Q) begin
+                        user_controls <= CTRL_GOHOME;
+                    end
+                    else if (kbctrl_ascii == `ascii_SPACE) begin
+                        user_controls <= CTRL_PLAYCHORD;
+                    end
+                    else if ((piano_note_octid >= 4'd1) && (piano_note_octid <= 4'd12)) begin
+                        user_controls <= CTRL_PIANOINPUT;
+                    end
+                    else if (kbctrl_ascii == `ascii_ENTER) begin
+                        user_controls <= CTRL_ETENTER;
+                    end
+                    end // case ear training
+    
+                2'd2: begin // Free Play
+                    if (kbctrl_ascii == `ascii_Q) begin
+                        user_controls <= CTRL_GOHOME;
+                    end
+                    else if ((piano_note_octid >= 4'd1) && (piano_note_octid <= 4'd12)) begin
+                        user_controls <= CTRL_PIANOINPUT;
+                    end
+                    else if (kbctrl_ascii == `ascii_ENTER) begin
+                        user_controls <= CTRL_ETENTER;
+                    end
+                    end // case free play
+    
+                default: begin
+                    user_controls <= CTRL_NOP;
+                    end
+            endcase
+        end // prev_ctrl == CTRL_NOP
+        
+        prev_ctrl <= user_controls;
+    end
 
 /* Compare */
 //    wire [7:0] compare_symbol = (compare_correct) ? `ascii_O : `ascii_MINUS;
@@ -187,7 +251,8 @@ module swctrl_piano (
     // piano_note_id
     localparam first_octave_offset = 2'd3;
     localparam octave_num_keys = 4'd12;
-    assign note_id = octave * octave_num_keys + piano_note_octid + first_octave_offset;
+    wire [6:0] note_id;
+    assign note_id = (octave-1) * octave_num_keys + piano_note_octid + first_octave_offset;
     assign piano_note_id = (piano_note_octid == 0) ? 7'b0 : note_id;
 
     // detech new piano played note
@@ -214,8 +279,8 @@ module swctrl_piano (
         .vol_down(BTND),
         .AUD_SD(freeplay_sd),
         .AUD_PWM(freeplay_pwm),
-        .LED({LED[14:12], 12'b0}),
-        .kb_ascii(),
+        .LED({1'b0, LED[14:12], 12'b0}),    // debug
+        .kb_ascii(kbctrl_ascii),
         .piano_played_octid(piano_note_octid)
     );
 
@@ -311,7 +376,7 @@ module swctrl_piano (
 
 /* 7 SEG */
     // store and update 7seg display
-    wire seg7en = new_key_pressed | new_played_note | new_sung_note;
+    wire seg7en = new_played_note | new_sung_note;
     reg [63:0] seg7_reg;
 
   // 7 seg config, display piano note
@@ -465,11 +530,5 @@ module swctrl_piano (
         .seg(SEG7_SEG[6:0]),
         .an(SEG7_AN[7:0])
     );
-
-/* Keyboard User Controls */
-  // keyboard to user controls conversion logic
-
-  //
-
 
 endmodule
