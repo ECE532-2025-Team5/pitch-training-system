@@ -29,11 +29,11 @@
 #define SPACE      0x20
 
 
-unsigned int get_random_U32_number(u32 *state) {
+unsigned int get_random_U32_number(u32 *state,u32 result) {
     u32 Number = *state;
     Number ^= Number << 13;
     Number ^= Number >> 17;
-    Number ^= Number << 5;
+    Number ^= (Number << 5)+result;
     *state = Number;
     return Number;
 }
@@ -126,11 +126,11 @@ int main() {
             //generate random notes
             //(0-11) +33
             for (int i=0;i<numNotes;i++){
-    			randNoteArray[i]=get_random_U32_number(state)%12+33;
+    			randNoteArray[i]=get_random_U32_number(state,result)%12+33;
     			if (i!=0){
     				for(int j=0;j<i;j++){
     					while (randNoteArray[i] == randNoteArray[j]){
-    						randNoteArray[i]=get_random_U32_number(state)%12+33;
+    						randNoteArray[i]=get_random_U32_number(state,result)%12+33;
     					}
     				}
     			}
