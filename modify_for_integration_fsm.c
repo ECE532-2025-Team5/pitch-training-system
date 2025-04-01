@@ -116,7 +116,7 @@ int main() {
     	else if (mode == 2)
     	{
     		xil_printf("Im in mode 2\n.");
-    		numNotes = get_random_U32_number(state)%3 +1;
+    		numNotes = get_random_U32_number(state,result)%3 +1;
             //how many notes are randomly generated shown through led[1:0]
     		u32 *randNoteArray = malloc(numNotes * sizeof(u32));
     		u32 *UserInputs = malloc(numNotes * sizeof(u32));
