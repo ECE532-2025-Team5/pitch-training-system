@@ -30,6 +30,53 @@ unsigned int get_random_U32_number(u32 *state) {
     *state = Number;
     return Number;
 }
+volatile unsigned int* User_Sang = (unsigned int*) XPAR_GPIO_3_BASEADDR;
+volatile unsigned int* reference = (unsigned int*) XPAR_GPIO_2_BASEADDR;
+
+u32 audio_pipeline_note_mapping_ifEl(u32 audio_bin){
+	u32 note;
+	if (audio_bin>=34 && audio_bin<=36){
+		note=33;
+	}
+	else if (audio_bin>=37 && audio_bin <=40){
+		note=34;
+	}
+	else if(audio_bin>=41 && audio_bin<=45){
+		note =35;
+	}
+	else if(audio_bin>=46 && audio_bin<=49){
+		note=36;
+	}
+	else if(audio_bin>=50 && audio_bin<=53){
+		note=37;
+	}
+	else if(audio_bin>=54 && audio_bin<=58){
+		note=38;
+	}
+	else if(audio_bin>=59 && audio_bin<=63){
+		note=39;
+	}
+	else if(audio_bin>=64 && audio_bin<=69){
+		note=40;
+	}
+	else if(audio_bin>=70 && audio_bin<=74){
+		note=41;
+	}
+	else if(audio_bin>=75 && audio_bin<=80){
+		note=42;
+	}
+	else if(audio_bin>=81 && audio_bin<=87){
+		note=43;
+	}
+	else if(audio_bin>=88 && audio_bin<=94){
+		note=44;
+	}
+	else{
+        print("User not singing in the specified range.");
+        note =0;
+	}
+	return note;
+}
 
 int main() {
     u32 mode,result;
@@ -58,26 +105,21 @@ int main() {
         //switch[15] on
     	else if (mode == 2)
     	{
-            //Xil_Out32(RGB_LED_ADDR, 0x20000);
     		numNotes = get_random_U32_number(state)%3 +1;
-            //numNotes = Xil_In32(NUM_NOTES);
             //how many notes are randomly generated shown through led[1:0]
-            //Xil_Out32(LED_BASE_ADDR, numNotes);
     		u32 *randNoteArray = malloc(numNotes * sizeof(u32));
     		u32 *UserInputs = malloc(numNotes * sizeof(u32));
     		int matches=0;
     		u32 AllMatch;
 
-            //show what notes are generated through
-            //note 1: LED [3:2]
-            //note 2: LED [5:4]
-            //note 3: LED [7:6]
+            //generate random notes
+            //(0-11) +33
             for (int i=0;i<numNotes;i++){
-    			randNoteArray[i]=get_random_U32_number(state)%12+28;
+    			randNoteArray[i]=get_random_U32_number(state)%12+33;
     			if (i!=0){
     				for(int j=0;j<i;j++){
     					while (randNoteArray[i] == randNoteArray[j]){
-    						randNoteArray[i]=get_random_U32_number(state)%12+28;
+    						randNoteArray[i]=get_random_U32_number(state)%12+33;
     					}
     				}
     			}
@@ -99,24 +141,8 @@ int main() {
     	    	chord = chord | (0<<31);
     	    	Xil_Out32(LED_BASE_ADDR, chord);  // Set LED[15]
     	    }
-    		//0-11 +28
-//    		//concatenate the chord for outputting the chord to the audio port
-//    		while (Xil_In32(PUSH_BUTTON_BASE_ADDR)){
-//    			Xil_Out32(LED_BASE_ADDR,chord);
-//    		}
-    		//if randomly generated note is just 1; user only need to input 1 input
-            //only input data using switches[1:0]
-    		//LEDrep=(UserInputs[0]<<8)|(UserInputs[1]<<10)|(UserInputs[2]<<12)|chord;
-    		//Xil_Out32(LED_BASE_ADDR, LEDrep);
-//            for (int i = 0; i < numNotes; i++) {
-//                u32 newInput;
-//                do {
-//                    newInput = Xil_In32(SWITCHES_ADDR) & 0x3;  // Read switch value
-//                } while ((i > 0 && newInput == UserInputs[i - 1])||(i==0 && newInput==initial_input));  // Ensure it's different
-//                UserInputs[i] = newInput;  // Store valid input
-//                LEDrep=(UserInputs[i]<<(8+i))|LEDrep;
-//                Xil_Out32(LED_BASE_ADDR, LEDrep);
-//            }
+    		
+    		//concatenate the chord for outputting the chord to the audio port
             if (numNotes == 1) {
                 // Wait for user input change
                 do {
@@ -173,28 +199,22 @@ int main() {
     		Xil_Out32(LED_BASE_ADDR, chord);
 		}
 		else if(mode == 3){
-			u32 UserSang;
-			//u32 referenceNote=(Xil_In32(PERIPHERAL)>>4)&0b1111111;
-			u32 referenceNote=Xil_In32(REFERENCE_NOTE)&0x3;
-			//UserSang=Xil_In32(FFT_ADDR);        I dont know the number of bits FFT will give me
-			UserSang=Xil_In32(SWITCHES_ADDR)&0x3;
+			u32 UserSang_note = audio_pipeline_note_mapping_ifEl(*User_Sang);
 			u32 package;
 			u32 Match_freePlay;
-			if (UserSang){
-				if(referenceNote==UserSang){
+			if (UserSang_note){
+				if(*reference==UserSang_note){
 					Match_freePlay =1;
 				}
 				else{
 					Match_freePlay =0;
 				}
 			}
-			//led:
-			//led[0]:match
-			//led[2:1]: referenceNote
-			//led[4:3]: userSang
-			package = (UserSang<<25)|(Match_freePlay<<31)|mode;
+
+			package = (UserSang_note<<25)|(Match_freePlay<<31)|mode;
 			//sub with peri address
 			Xil_Out32(LED_BASE_ADDR, package);
 		}
     }
     return 0;
+}
