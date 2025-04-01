@@ -50,18 +50,18 @@ module piano(
     // piano keys
     wire [3:0] note_id_temp;
     kb2piano_octave #(
-        .C       (`kb_Z),
-        .C_sharp (`kb_S),
-        .D       (`kb_X),
-        .D_sharp (`kb_D),
-        .E       (`kb_C),
-        .F       (`kb_V),
-        .F_sharp (`kb_G),
-        .G       (`kb_B),
-        .G_sharp (`kb_H),
-        .A       (`kb_N),
-        .A_sharp (`kb_J),
-        .B       (`kb_M)
+        .F       (`kb_Z),
+        .F_sharp (`kb_S),
+        .G       (`kb_X),
+        .G_sharp (`kb_D),
+        .A       (`kb_C),
+        .A_sharp (`kb_F),
+        .B       (`kb_V),
+        .C       (`kb_B),
+        .C_sharp (`kb_H),
+        .D       (`kb_N),
+        .D_sharp (`kb_J),
+        .E       (`kb_M)
     ) kb2poct (
         .keycode(keycode),
         .piano_note(note_id_temp)
