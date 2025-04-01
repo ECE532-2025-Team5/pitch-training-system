@@ -13,6 +13,11 @@
 //#define VGA_SLAVE_ADDR   0x44a20000
 
 //-------------------Simulating through GPIO ports------------
+
+//this version of fsm changes the ptr to the correct address to read properly
+//and mapped the fft bins to notes
+//updated the comparison logic in mode 3 - free play
+//RMB to change this!
 #define PUSH_BUTTON_BASE_ADDR  0x44a00000
 #define LED_BASE_ADDR  0x40010000
 #define RGB_LED_ADDR   0x40010008
