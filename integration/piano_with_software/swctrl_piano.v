@@ -203,7 +203,7 @@ module swctrl_piano (
 
 /* User Sung Note */
     // convert sung_note spreadsheet_id to octave_id (C, C#, ... B)
-    localparam sung_range_offset = 5'd27;   // User singing range is C3 to B3
+    localparam sung_range_offset = 5'd32;   // User singing range is F3 to E4
     wire [3:0] sung_note_octid = sung_note_id - sung_range_offset;
 
     // detect new sung note
@@ -249,7 +249,7 @@ module swctrl_piano (
 
 /* Piano */
     // piano_note_id
-    localparam first_octave_offset = 2'd3;
+    localparam first_octave_offset = 4'd8;
     localparam octave_num_keys = 4'd12;
     wire [6:0] note_id;
     assign note_id = (octave-1) * octave_num_keys + piano_note_octid + first_octave_offset;
@@ -287,7 +287,7 @@ module swctrl_piano (
 /* Play Generated Chord (Ear Training) */
   // convert play_note spreadsheet_id to octave_id (C, C#, ... B)
     localparam play_range_octave = 2'd3;
-    localparam play_range_offset = 5'd27;   // User singing range is C3(28) to B3(39)
+    localparam play_range_offset = 6'd32;   // User singing range is F3(33) to E4(44)
     wire [3:0] play_note_octid0 = play_note_id_0 - play_range_offset;
     // wire [3:0] play_note_octid1 = play_note_id_1 - play_range_offset;
     // wire [3:0] play_note_octid2 = play_note_id_2 - play_range_offset;
@@ -297,18 +297,18 @@ module swctrl_piano (
     reg [31:0] c1scale [12:0];
     always @* begin
         case (play_note_octid0)
-            1:  c1scale[1]  = 32'd3057805;   // C1
-            2:  c1scale[2]  = 32'd2886184;   // C#1
-            3:  c1scale[3]  = 32'd2724194;   // D1
-            4:  c1scale[4]  = 32'd2571298;   // D#1
-            5:  c1scale[5]  = 32'd2426982;   // E1
-            6:  c1scale[6]  = 32'd2290765;   // F1
-            7:  c1scale[7]  = 32'd2162195;   // F#1
-            8:  c1scale[8]  = 32'd2040840;   // G1
-            9:  c1scale[9]  = 32'd1926296;   // G#1
-            10: c1scale[10]  = 32'd1818182;   // A1
-            11: c1scale[11] = 32'd1716135;   // A#1
-            12: c1scale[12] = 32'd1619816;   // B1
+            1:  c1scale[1]  = 32'd2290765;   // F1
+            2:  c1scale[2]  = 32'd2162195;   // F#1
+            3:  c1scale[3]  = 32'd2040840;   // G1
+            4:  c1scale[4]  = 32'd1926296;   // G#1
+            5:  c1scale[5]  = 32'd1818182;   // A1
+            6:  c1scale[6]  = 32'd1716135;   // A#1
+            7:  c1scale[7]  = 32'd1619816;   // B1
+            8:  c1scale[8]  = 32'd1528903;   // C2
+            9:  c1scale[9]  = 32'd1443092;   // C#2
+            10: c1scale[10] = 32'd1362097;   // D2
+            11: c1scale[11] = 32'd1285649;   // D#2
+            12: c1scale[12] = 32'd1213491;   // E2
             default: c1scale[0] = 32'd0;
          endcase
     end
@@ -382,52 +382,52 @@ module swctrl_piano (
   // 7 seg config, display piano note
     always @ (*) begin
         case(piano_note_octid)
-            'd1: begin // C
-                piano_played_note <= `ascii_C;
-                piano_played_accidental <= `ascii_SPACE;
-                end
-            'd2: begin // C#
-                piano_played_note <= `ascii_C;
-                piano_played_accidental <= `ascii_SQT;
-                end
-            'd3: begin // D
-                piano_played_note <= `ascii_D;
-                piano_played_accidental <= `ascii_SPACE;
-                end
-            'd4: begin // D#
-                piano_played_note <= `ascii_D;
-                piano_played_accidental <= `ascii_SQT;
-                end
-            'd5: begin // E
-                piano_played_note <= `ascii_E;
-                piano_played_accidental <= `ascii_SPACE;
-                end
-            'd6: begin // F
+            'd1: begin // F
                 piano_played_note <= `ascii_F;
                 piano_played_accidental <= `ascii_SPACE;
                 end
-            'd7: begin // F#
+            'd2: begin // F#
                 piano_played_note <= `ascii_F;
                 piano_played_accidental <= `ascii_SQT;
                 end
-            'd8: begin // G
+            'd3: begin // G
                 piano_played_note <= `ascii_G;
                 piano_played_accidental <= `ascii_SPACE;
                 end
-            'd9: begin // G#
+            'd4: begin // G#
                 piano_played_note <= `ascii_G;
                 piano_played_accidental <= `ascii_SQT;
                 end
-            'd10: begin // A
+            'd5: begin // A
                 piano_played_note <= `ascii_A;
                 piano_played_accidental <= `ascii_SPACE;
                 end
-            'd11: begin // A#
+            'd6: begin // A#
                 piano_played_note <= `ascii_A;
                 piano_played_accidental <= `ascii_SQT;
                 end
-            'd12: begin // B
+            'd7: begin // B
                 piano_played_note <= `ascii_B;
+                piano_played_accidental <= `ascii_SPACE;
+                end
+            'd8: begin // C
+                piano_played_note <= `ascii_C;
+                piano_played_accidental <= `ascii_SPACE;
+                end
+            'd9: begin // C#
+                piano_played_note <= `ascii_C;
+                piano_played_accidental <= `ascii_SQT;
+                end
+            'd10: begin // D
+                piano_played_note <= `ascii_D;
+                piano_played_accidental <= `ascii_SPACE;
+                end
+            'd11: begin // D#
+                piano_played_note <= `ascii_D;
+                piano_played_accidental <= `ascii_SQT;
+                end
+            'd12: begin // E
+                piano_played_note <= `ascii_E;
                 piano_played_accidental <= `ascii_SPACE;
                 end
             
@@ -441,52 +441,52 @@ module swctrl_piano (
     // 7 seg config, display sung note
     always @ (*) begin
         case(sung_note_octid)
-            'd1: begin // C
-                sung_note_note <= `ascii_C;
-                sung_note_accidental <= `ascii_SPACE;
-                end
-            'd2: begin // C#
-                sung_note_note <= `ascii_C;
-                sung_note_accidental <= `ascii_SQT;
-                end
-            'd3: begin // D
-                sung_note_note <= `ascii_D;
-                sung_note_accidental <= `ascii_SPACE;
-                end
-            'd4: begin // D#
-                sung_note_note <= `ascii_D;
-                sung_note_accidental <= `ascii_SQT;
-                end
-            'd5: begin // E
-                sung_note_note <= `ascii_E;
-                sung_note_accidental <= `ascii_SPACE;
-                end
-            'd6: begin // F
+            'd1: begin // F
                 sung_note_note <= `ascii_F;
                 sung_note_accidental <= `ascii_SPACE;
                 end
-            'd7: begin // F#
+            'd2: begin // F#
                 sung_note_note <= `ascii_F;
                 sung_note_accidental <= `ascii_SQT;
                 end
-            'd8: begin // G
+            'd3: begin // G
                 sung_note_note <= `ascii_G;
                 sung_note_accidental <= `ascii_SPACE;
                 end
-            'd9: begin // G#
+            'd4: begin // G#
                 sung_note_note <= `ascii_G;
                 sung_note_accidental <= `ascii_SQT;
                 end
-            'd10: begin // A
+            'd5: begin // A
                 sung_note_note <= `ascii_A;
                 sung_note_accidental <= `ascii_SPACE;
                 end
-            'd11: begin // A#
+            'd6: begin // A#
                 sung_note_note <= `ascii_A;
                 sung_note_accidental <= `ascii_SQT;
                 end
-            'd12: begin // B
+            'd7: begin // B
                 sung_note_note <= `ascii_B;
+                sung_note_accidental <= `ascii_SPACE;
+                end
+            'd8: begin // C
+                sung_note_note <= `ascii_C;
+                sung_note_accidental <= `ascii_SPACE;
+                end
+            'd9: begin // C#
+                sung_note_note <= `ascii_C;
+                sung_note_accidental <= `ascii_SQT;
+                end
+            'd10: begin // D
+                sung_note_note <= `ascii_D;
+                sung_note_accidental <= `ascii_SPACE;
+                end
+            'd11: begin // D#
+                sung_note_note <= `ascii_D;
+                sung_note_accidental <= `ascii_SQT;
+                end
+            'd12: begin // E
+                sung_note_note <= `ascii_E;
                 sung_note_accidental <= `ascii_SPACE;
                 end
             

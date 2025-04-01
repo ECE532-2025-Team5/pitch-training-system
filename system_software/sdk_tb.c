@@ -29,6 +29,7 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+// piano f3e4
 
 /*
  * helloworld.c: simple test application
@@ -167,10 +168,10 @@ int main()
     	// peripheral (input)
     	mode_sel 		= mb_mode;
         play_note_num 	= 1;
-    	play_note_id0 	= generated_note0 + 27;
+    	play_note_id0 	= generated_note0 + 32;
     	play_note_id1 	= 0;
     	play_note_id2 	= 0;
-    	sung_note_id 	= microblaze_sung_note + 28;
+    	sung_note_id 	= microblaze_sung_note + 33;
 
         if (mb_mode == MODE_EARTRAINING) {
             microblaze_cmp_note = play_note_id0;
