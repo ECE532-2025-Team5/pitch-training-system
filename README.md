@@ -1,7 +1,11 @@
 # pitch-training-system
 
+## MAIN PROJECT
+`./MEMES_mic/MEMS_mic.xpr`
+
 ## PERIPHERALS (Angus)
 Logic in `./system_software` project.
+
 Dependencies:
 - Top Level (`./integration/piano_with_software/swctrl_piano.v`)
     - piano (`./integration/piano_with_software/piano.v`)
