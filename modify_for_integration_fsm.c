@@ -3,6 +3,8 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <unistd.h>
 
 // Define the base addresses of AXI slaves
 //-------------------Actual Addresses for each Module------------
@@ -30,8 +32,8 @@ unsigned int get_random_U32_number(u32 *state) {
     *state = Number;
     return Number;
 }
+volatile unsigned int* reference = (unsigned int*) XPAR_MODE_BASEADDR;
 volatile unsigned int* User_Sang = (unsigned int*) XPAR_GPIO_3_BASEADDR;
-volatile unsigned int* reference = (unsigned int*) XPAR_GPIO_2_BASEADDR;
 
 u32 audio_pipeline_note_mapping_ifEl(u32 audio_bin){
 	u32 note;
@@ -72,7 +74,7 @@ u32 audio_pipeline_note_mapping_ifEl(u32 audio_bin){
 		note=44;
 	}
 	else{
-        print("User not singing in the specified range.");
+        //print("User not singing in the specified range.");
         note =0;
 	}
 	return note;
@@ -86,25 +88,29 @@ int main() {
     u32 state_var;  // Declare a valid variable to hold the state
     u32 *state = &state_var;  // Initialize pointer to the address of state_var
     u32 initial_input;
+    init_platform();
+    xil_printf("Hello\n");
     //srand(time(NULL));
     while(1){
-    	result = Xil_In32(PERI_ADDR);
+    	result = *reference;
     	initial_input = Xil_In32(SWITCHES_ADDR)&0x3;
     	if (counter==0){
         	*state = result;
         	counter++;
     	}
-
+    	xil_printf("I just entered while loop\n.");
     	mode = result & 0xF;
     	if (mode == 1)
     	{
     		//currently in homescreen
             //led[15]: Homescreen
+    		xil_printf("Im in mode 1\n.");
     		Xil_Out32(RGB_LED_ADDR, 0x1);
     	}
         //switch[15] on
     	else if (mode == 2)
     	{
+    		xil_printf("Im in mode 2\n.");
     		numNotes = get_random_U32_number(state)%3 +1;
             //how many notes are randomly generated shown through led[1:0]
     		u32 *randNoteArray = malloc(numNotes * sizeof(u32));
@@ -141,7 +147,7 @@ int main() {
     	    	chord = chord | (0<<31);
     	    	Xil_Out32(LED_BASE_ADDR, chord);  // Set LED[15]
     	    }
-    		
+
     		//concatenate the chord for outputting the chord to the audio port
             if (numNotes == 1) {
                 // Wait for user input change
@@ -199,22 +205,24 @@ int main() {
     		Xil_Out32(LED_BASE_ADDR, chord);
 		}
 		else if(mode == 3){
+			xil_printf("Im in mode 3\n.");
+
 			u32 UserSang_note = audio_pipeline_note_mapping_ifEl(*User_Sang);
-			u32 package;
-			u32 Match_freePlay;
-			if (UserSang_note){
-				if(*reference==UserSang_note){
-					Match_freePlay =1;
-				}
-				else{
-					Match_freePlay =0;
-				}
+			if(*reference==UserSang_note){
+				xil_printf("Pitch Matched.\n User Sang: %d\n",UserSang_note);
+					//Match_freePlay=1;
+			}
+			else{
+					//Match_freePlay =0;
+				xil_printf("Pitch Note Matched.\n User Sang: %d\n",UserSang_note);
 			}
 
-			package = (UserSang_note<<25)|(Match_freePlay<<31)|mode;
+			//package = (UserSang_note<<25)|(Match_freePlay<<31)|mode;
 			//sub with peri address
-			Xil_Out32(LED_BASE_ADDR, package);
+			//Xil_Out32(LED_BASE_ADDR, package);
+			//sleep(50);
 		}
+
     }
     return 0;
 }
