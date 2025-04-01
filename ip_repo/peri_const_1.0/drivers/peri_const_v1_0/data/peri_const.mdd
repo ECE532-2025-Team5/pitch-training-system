@@ -1,0 +1,10 @@
+
+
+OPTION psf_version = 2.1;
+
+BEGIN DRIVER peri_const
+	OPTION supported_peripherals = (peri_const);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = peri_const;
+END DRIVER

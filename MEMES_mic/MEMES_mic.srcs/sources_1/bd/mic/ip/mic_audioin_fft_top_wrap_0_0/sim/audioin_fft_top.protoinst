@@ -1,0 +1,9 @@
+{
+	"version": "1.0",
+	"modules": {
+		"audioin_fft_top": {
+			"proto_instances": {
+			}
+		}
+	}
+}

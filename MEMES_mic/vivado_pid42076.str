@@ -1,0 +1,807 @@
+/*
+
+Xilinx Vivado v2018.3 (64-bit) [Major: 2018, Minor: 3]
+SW Build: 2405991 on Thu Dec  6 23:38:27 MST 2018
+IP Build: 2404404 on Fri Dec  7 01:43:56 MST 2018
+
+Process ID (PID): 42076
+License: Customer
+
+Current time: 	Tue Apr 01 02:38:40 EDT 2025
+Time zone: 	Eastern Standard Time (America/New_York)
+
+OS: Windows 10
+OS Version: 10.0
+OS Architecture: amd64
+Available processors (cores): 12
+
+Screen size: 3840x2160
+Screen resolution (DPI): 192
+Available screens: 1
+Available disk space: 90 GB
+Default font: family=Segoe UI,name=Segoe UI,style=plain,size=24
+
+Java version: 	9.0.4 64-bit
+Java home: 	C:/Xilinx/Vivado/2018.3/tps/win64/jre9.0.4
+Java executable location: 	C:/Xilinx/Vivado/2018.3/tps/win64/jre9.0.4/bin/java.exe
+Java initial memory (-Xms): 	128 MB
+Java maximum memory (-Xmx):	 3 GB
+
+
+User name: 	Angus.LA
+User home directory: C:/Users/Angus.LA
+User working directory: C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic
+User country: 	CA
+User language: 	en
+User locale: 	en_CA
+
+RDI_BASEROOT: C:/Xilinx/Vivado
+HDI_APPROOT: C:/Xilinx/Vivado/2018.3
+RDI_DATADIR: C:/Xilinx/Vivado/2018.3/data
+RDI_BINDIR: C:/Xilinx/Vivado/2018.3/bin
+
+Vivado preferences file location: C:/Users/Angus.LA/AppData/Roaming/Xilinx/Vivado/2018.3/vivado.xml
+Vivado preferences directory: C:/Users/Angus.LA/AppData/Roaming/Xilinx/Vivado/2018.3/
+Vivado layouts directory: C:/Users/Angus.LA/AppData/Roaming/Xilinx/Vivado/2018.3/layouts
+PlanAhead jar file location: 	C:/Xilinx/Vivado/2018.3/lib/classes/planAhead.jar
+Vivado log file location: 	C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/vivado.log
+Vivado journal file location: 	C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/vivado.jou
+Engine tmp dir: 	C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/.Xil/Vivado-42076-DESKTOP-QH80AKG
+
+Xilinx Environment Variables
+----------------------------
+XILINX: C:/Xilinx/Vivado/2018.3/ids_lite/ISE
+XILINX_DSP: C:/Xilinx/Vivado/2018.3/ids_lite/ISE
+XILINX_PLANAHEAD: C:/Xilinx/Vivado/2018.3
+XILINX_SDK: C:/Xilinx/SDK/2018.3
+XILINX_VIVADO: C:/Xilinx/Vivado/2018.3
+XILINX_VIVADO_HLS: C:/Xilinx/Vivado/2018.3
+
+
+GUI allocated memory:	154 MB
+GUI max memory:		3,072 MB
+Engine allocated memory: 594 MB
+
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// WARNING: HEventQueue.dispatchEvent() is taking  1471 ms.
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// bx (cp):  Open Project : addNotify
+// Opening Vivado Project: C:\Users\Angus.LA\Desktop\ece532_project\final\pitch-training-system\MEMES_mic\MEMES_mic.xpr. Version: Vivado v2018.3 
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// Tcl Message: open_project C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.xpr 
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 604 MB. GUI used memory: 74 MB. Current time: 4/1/25, 2:38:42 AM EDT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 125 MB (+128247kb) [00:00:19]
+// [Engine Memory]: 646 MB (+526244kb) [00:00:19]
+// [Engine Memory]: 681 MB (+2464kb) [00:00:21]
+// WARNING: HEventQueue.dispatchEvent() is taking  4777 ms.
+// Tcl Message: open_project C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.xpr 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories 
+// Tcl Message: INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.3/data/ip'. 
+// Tcl Message: open_project: Time (s): cpu = 00:00:23 ; elapsed = 00:00:12 . Memory (MB): peak = 725.320 ; gain = 107.820 
+// Project name: MEMES_mic; location: C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic; part: xc7a100tcsg324-1
+dismissDialog("Open Project"); // bx (cp)
+// [GUI Memory]: 140 MB (+9454kb) [00:00:25]
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed time: 13 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Open Block Design]", 7, false); // u (Q, cp)
+// HMemoryUtils.trashcanNow. Engine heap size: 724 MB. GUI used memory: 78 MB. Current time: 4/1/25, 2:39:07 AM EDT
+// Run Command: PAResourceCommand.PACommandNames_OPEN_BLOCK_DESIGN
+// bx (cp):  Open Block Design : addNotify
+// TclEventType: LOAD_FEATURE
+// Tcl Message: open_bd_design {C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/mic.bd} 
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: LOAD_FEATURE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: Adding cell -- xilinx.com:ip:clk_wiz:6.0 - clk_wiz_0 Adding cell -- xilinx.com:ip:microblaze:11.0 - microblaze_0 Adding cell -- xilinx.com:ip:lmb_v10:3.0 - dlmb_v10 Adding cell -- xilinx.com:ip:lmb_v10:3.0 - ilmb_v10 Adding cell -- xilinx.com:ip:lmb_bram_if_cntlr:4.0 - dlmb_bram_if_cntlr 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: Adding cell -- xilinx.com:ip:lmb_bram_if_cntlr:4.0 - ilmb_bram_if_cntlr Adding cell -- xilinx.com:ip:blk_mem_gen:8.4 - lmb_bram Adding cell -- xilinx.com:ip:mdm:3.2 - mdm_1 Adding cell -- xilinx.com:ip:proc_sys_reset:5.0 - rst_clk_wiz_0_100M Adding cell -- xilinx.com:ip:axi_interconnect:2.1 - microblaze_0_axi_periph Adding cell -- xilinx.com:ip:axi_crossbar:2.1 - xbar 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// [Engine Memory]: 757 MB (+44140kb) [00:00:42]
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: Adding cell -- xilinx.com:ip:axi_gpio:2.0 - user_Sang Adding cell -- xilinx.com:ip:axi_uartlite:2.0 - axi_uartlite_0 Adding cell -- xilinx.com:user:audioin_fft_top_wrapper:1.0 - audioin_fft_top_wrap_0 Adding cell -- xilinx.com:ip:axi_gpio:2.0 - axi_gpio_peripherals Adding cell -- xilinx.com:module_ref:swctrl_piano:1.0 - swctrl_piano_0 Adding cell -- xilinx.com:module_ref:debug_periph_adapter:1.0 - debug_periph_adapter_0 
+// Tcl Message: Successfully read diagram <mic> from BD file <C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/mic.bd> 
+// TclEventType: RSB_OPEN_DIAGRAM
+// [Engine Memory]: 846 MB (+52906kb) [00:00:50]
+// WARNING: HEventQueue.dispatchEvent() is taking  4308 ms.
+// TclEventType: RSB_CONNECTION_CHANGE
+// Elapsed time: 15 seconds
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // v
+// HMemoryUtils.trashcanNow. Engine heap size: 869 MB. GUI used memory: 81 MB. Current time: 4/1/25, 2:39:23 AM EDT
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// Tcl Message: open_bd_design: Time (s): cpu = 00:00:16 ; elapsed = 00:00:15 . Memory (MB): peak = 880.906 ; gain = 131.957 
+// 'bA' command handler elapsed time: 16 seconds
+dismissDialog("Open Block Design"); // bx (cp)
+// [GUI Memory]: 168 MB (+22241kb) [00:01:07]
+// [Engine Memory]: 889 MB (+830kb) [00:01:07]
+// Elapsed time: 12 seconds
+selectTab((HResource) null, (HResource) null, "Sources", 0); // aI (aF, cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v)]", 3); // B (D, cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd)]", 4); // B (D, cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v)]", 5); // B (D, cp)
+selectButton(PAResourceCommand.PACommandNames_REGENERATE_LAYOUT, "System_regenerate_rsb_layout"); // B (f, cp)
+// Run Command: PAResourceCommand.PACommandNames_REGENERATE_LAYOUT
+// Tcl Command: 'regenerate_bd_layout'
+// TclEventType: RSB_LAYOUT_STATE
+// TclEventType: RSB_REGENERATE_LAYOUT
+// Tcl Message: regenerate_bd_layout 
+selectButton(PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN, "System_validate_bd_design_rsb"); // B (f, cp)
+// Run Command: PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN
+// Tcl Command: 'validate_bd_design'
+// Tcl Message: validate_bd_design 
+// Tcl Message: ERROR: [BD 5-336] This command cannot be run, as the BD-design is locked. Locked reason(s): * Block design contains locked IPs. Please run report_ip_status for more details and recommendations on how to fix this issue.  List of locked IPs:  mic_audioin_fft_top_wrap_0_0  
+// Tcl Message: ERROR: [Common 17-39] 'validate_bd_design' failed due to earlier errors. 
+// dM (cp): Critical Messages: addNotify
+// Elapsed time: 13 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (dM)
+dismissDialog("Critical Messages"); // dM (cp)
+// Tcl Command: 'rdi::info_commands {re*}'
+// Tcl Command: 'rdi::info_commands {repo*}'
+// Tcl Command: 'rdi::info_commands {report*}'
+// Elapsed time: 14 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "report"); // aC (Z, cp)
+// Elapsed time: 13 seconds
+selectCodeEditor(RDIResource.TclConsoleView_TCL_CONSOLE_CODE_EDITOR, 2425, 233); // dr (af, cp)
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, (String) null); // aC (Z, cp)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager, Settings]", 1, false); // u (Q, cp)
+// Run Command: RDIResourceCommand.RDICommands_SETTINGS
+// Tcl Command: 'rdi::info_commands {device::*}'
+// Tcl Command: 'rdi::info_commands {debug::*}'
+// Tcl Command: 'rdi::info_commands {*}'
+// F (cp): Settings: addNotify
+// WARNING: HEventQueue.dispatchEvent() is taking  3079 ms.
+expandTree(PAResourceQtoS.SettingsDialog_PROJECT_TREE, "[projectRoot, IP]", 6); // L (C, F)
+selectTree(PAResourceQtoS.SettingsDialog_PROJECT_TREE, "[projectRoot, IP, Repository]", 7, false); // L (C, F)
+// Elapsed time: 56 seconds
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a (F)
+dismissDialog("Settings"); // F (cp)
+// Tcl Command: 'rdi::info_commands {rep*}'
+// Tcl Command: 'rdi::info_commands {report*}'
+// Tcl Command: 'rdi::info_commands {report_*}'
+// Tcl Command: 'rdi::info_commands {report_ip*}'
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "report_ip_status", true); // aC (Z, cp)
+// Tcl Command: 'report_ip_status'
+// Tcl Command: 'report_ip_status'
+// Tcl Message: report_ip_status 
+// Elapsed time: 27 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), audioin_fft_top_wrap_0 : mic_audioin_fft_top_wrap_0_0 (mic_audioin_fft_top_wrap_0_0.xci)]", 7); // B (D, cp)
+// A (cp): Show IP Hierarchy: addNotify
+// Elapsed time: 13 seconds
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a (A)
+dismissDialog("Show IP Hierarchy"); // A (cp)
+// Tcl Command: 'rdi::info_commands {re*}'
+// Tcl Command: 'rdi::info_commands {rese*}'
+// Tcl Command: 'rdi::info_commands {reset*}'
+// Tcl Command: 'rdi::info_commands {reset_*}'
+// Tcl Command: 'rdi::info_commands {reset_p*}'
+// Tcl Command: 'rdi::info_commands {reset_pr*}'
+// Tcl Command: 'rdi::info_commands {reset_pro*}'
+// Elapsed time: 11 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "reset_project", true); // aC (Z, cp)
+// Tcl Command: 'reset_project'
+// Tcl Command: 'reset_project'
+// Tcl Message: reset_project 
+// Elapsed time: 10 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), All_inputs : xil_defaultlib.mic_axi_gpio_0_0]", 6, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), All_inputs : xil_defaultlib.mic_axi_gpio_0_0]", 6, false, false, false, false, true, false); // B (D, cp) - Popup Trigger
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), All_inputs : xil_defaultlib.mic_axi_gpio_0_0]", 6, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), All_inputs : xil_defaultlib.mic_axi_gpio_0_0]", 6, false, false, false, false, false, true); // B (D, cp) - Double Click
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), All_inputs : xil_defaultlib.mic_axi_gpio_0_0]", 6, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), All_inputs : xil_defaultlib.mic_axi_gpio_0_0]", 6, false, false, false, false, false, true); // B (D, cp) - Double Click
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), axi_uartlite_0 : mic_axi_uartlite_0_0 (mic_axi_uartlite_0_0.xci)]", 8, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), axi_uartlite_0 : mic_axi_uartlite_0_0 (mic_axi_uartlite_0_0.xci)]", 8, false, false, false, false, false, true); // B (D, cp) - Double Click
+// Run Command: PAResourceCommand.PACommandNames_RECUSTOMIZE_CORE
+// HOptionPane Warning: ''mic_axi_uartlite_0_0.xci' IP is part of a block design. Please use the block design 'mic' to customize the IP. (Re-customize IP)'
+selectButton("PAResourceQtoS.RecustomizeCore_THIS_IP_PART_OF_BLOCK_DESIGN_OK", "OK"); // JButton (C, I)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), audioin_fft_top_wrap_0 : mic_audioin_fft_top_wrap_0_0 (mic_audioin_fft_top_wrap_0_0.xci)]", 7); // B (D, cp)
+// A (cp): Show IP Hierarchy: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (A)
+// TclEventType: DG_GRAPH_STALE
+dismissDialog("Show IP Hierarchy"); // A (cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), axi_uartlite_0 : mic_axi_uartlite_0_0 (mic_axi_uartlite_0_0.xci)]", 9); // B (D, cp)
+// A (cp): Show IP Hierarchy: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (A)
+// TclEventType: DG_GRAPH_STALE
+dismissDialog("Show IP Hierarchy"); // A (cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), clk_wiz_0 : mic_clk_wiz_0_0 (mic_clk_wiz_0_0.xci)]", 10); // B (D, cp)
+// A (cp): Show IP Hierarchy: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (A)
+// TclEventType: DG_GRAPH_STALE
+dismissDialog("Show IP Hierarchy"); // A (cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), mdm_1 : mic_mdm_1_0 (mic_mdm_1_0.xci)]", 12); // B (D, cp)
+// A (cp): Show IP Hierarchy: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (A)
+dismissDialog("Show IP Hierarchy"); // A (cp)
+// TclEventType: DG_GRAPH_STALE
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), mdm_1 : mic_mdm_1_0 (mic_mdm_1_0.xci)]", 12, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), mdm_1 : mic_mdm_1_0 (mic_mdm_1_0.xci)]", 12, false, false, false, false, false, true); // B (D, cp) - Double Click
+// Run Command: PAResourceCommand.PACommandNames_RECUSTOMIZE_CORE
+// HOptionPane Warning: ''mic_mdm_1_0.xci' IP is part of a block design. Please use the block design 'mic' to customize the IP. (Re-customize IP)'
+selectButton("PAResourceQtoS.RecustomizeCore_THIS_IP_PART_OF_BLOCK_DESIGN_OK", "OK"); // JButton (C, I)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), microblaze_0 : mic_microblaze_0_0 (mic_microblaze_0_0.xci)]", 13); // B (D, cp)
+// A (cp): Show IP Hierarchy: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (A)
+dismissDialog("Show IP Hierarchy"); // A (cp)
+// TclEventType: DG_GRAPH_STALE
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), rst_clk_wiz_0_100M : mic_rst_clk_wiz_0_100M_0 (mic_rst_clk_wiz_0_100M_0.xci)]", 18); // B (D, cp)
+// A (cp): Show IP Hierarchy: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (A)
+dismissDialog("Show IP Hierarchy"); // A (cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), user_Sang : mic_axi_gpio_2_0 (mic_axi_gpio_2_0.xci)]", 19); // B (D, cp)
+// A (cp): Show IP Hierarchy: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (A)
+dismissDialog("Show IP Hierarchy"); // A (cp)
+// TclEventType: DG_GRAPH_STALE
+// Elapsed time: 22 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), All_inputs : xil_defaultlib.mic_axi_gpio_0_0]", 6, false); // B (D, cp)
+// Elapsed time: 65 seconds
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // B (f, cp)
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+// c (cp): Add Sources: addNotify
+dismissDialog("Add Sources"); // c (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // X (q, cp)
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_TEXT_EDITOR, "Text Editor"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_TEXT_EDITOR, "Text Editor"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ac (cp)
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // X (q, cp)
+selectMenu(PAResourceItoN.MainMenuMgr_FLOW, "Flow"); // X (q, cp)
+dismissMenu(PAResourceItoN.MainMenuMgr_FLOW, "Flow"); // X (q, cp)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager, Settings]", 1, false); // u (Q, cp)
+// Run Command: RDIResourceCommand.RDICommands_SETTINGS
+// F (cp): Settings: addNotify
+selectButton(PAResourceQtoS.SettingsProjectIPRepositoryPage_ADD_REPOSITORY, "Add Repository"); // B (f, F)
+// HMemoryUtils.trashcanNow. Engine heap size: 910 MB. GUI used memory: 76 MB. Current time: 4/1/25, 2:45:37 AM EDT
+// Elapsed time: 10 seconds
+setFolderChooser("C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/ip/ip");
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// WARNING: HEventQueue.dispatchEvent() is taking  1485 ms.
+// Tcl Message: set_property  ip_repo_paths  {c:/Users/Angus.LA/Desktop/ece532_project/final/fft_v8/ip C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/ip/ip c:/Users/Angus.LA/Desktop/ece532_project/final/vivado-library-2018.2-2} [current_project] 
+// TclEventType: CREATE_IP_CATALOG
+// TclEventType: FILE_SET_CHANGE
+// bx (cp):  Refresh All IP Repositories : addNotify
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: BDCELL_LOCK_CHANGE
+// Tcl Message: update_ip_catalog 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories 
+// Tcl Message: INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/ip/ip'. 
+// TclEventType: BDCELL_LOCK_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: RSB_BITABEN_IPREPODATA_REFRESH
+// TclEventType: BDCELL_LOCK_CHANGE
+// TclEventType: CREATE_IP_CATALOG
+// c (F): Add Repository: addNotify
+selectButton(RDIResource.AddRepositoryInfoDialog_OK, "OK"); // a (c)
+dismissDialog("Add Repository"); // c (F)
+selectButton(RDIResource.BaseDialog_APPLY, "Apply"); // a (F)
+selectButton(RDIResource.BaseDialog_APPLY, "Apply"); // a (F)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (F)
+dismissDialog("Settings"); // F (cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v)]", 5, true, false, false, false, true, false); // B (D, cp) - Popup Trigger - Node
+selectMenu(PAResourceQtoS.SrcMenu_IP_DOCUMENTATION, "IP Documentation"); // ac (al, cp)
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // ac (al, cp)
+selectMenuItem(PAResourceQtoS.SrcMenu_REFRESH_HIERARCHY, "Refresh Hierarchy"); // af (al, cp)
+// [GUI Memory]: 185 MB (+8702kb) [00:07:38]
+// HMemoryUtils.trashcanNow. Engine heap size: 933 MB. GUI used memory: 101 MB. Current time: 4/1/25, 2:46:12 AM EDT
+// [Engine Memory]: 933 MB (+132kb) [00:07:45]
+// Tcl Command: 'rdi::info_commands {res*}'
+// Tcl Command: 'rdi::info_commands {reset*}'
+// Tcl Command: 'rdi::info_commands {reset_*}'
+// Tcl Command: 'rdi::info_commands {reset_pro*}'
+// Tcl Command: 'rdi::info_commands {reset_projec*}'
+// Tcl Command: 'rdi::info_commands {reset_project*}'
+// Elapsed time: 19 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "reset_project", true); // aC (Z, cp)
+// Tcl Command: 'reset_project'
+// Tcl Command: 'reset_project'
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: reset_project 
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 22 seconds
+selectButton(PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN, "validate_bd_design_rsb"); // B (f, cp)
+// Run Command: PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN
+// Tcl Command: 'validate_bd_design'
+// TclEventType: RSB_PARAM_PROP
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// bx (cp):  Validate Design : addNotify
+// TclEventType: RSB_REMOVE_OBJECT
+// Tcl Message: validate_bd_design 
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// WARNING: HEventQueue.dispatchEvent() is taking  1009 ms.
+// TclEventType: RSB_PARAM_PROP
+// Tcl Message: validate_bd_design: Time (s): cpu = 00:00:03 ; elapsed = 00:00:06 . Memory (MB): peak = 935.094 ; gain = 0.000 
+dismissDialog("Validate Design"); // bx (cp)
+selectButton("PAResourceTtoZ.ValidateRSBDesign_VALIDATION_SUCCESSFUL_THERE_NO_OK", "OK"); // JButton (C, I)
+// Elapsed time: 15 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Editor", 1); // k (j, cp)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // k (j, cp)
+// Run Command: PAResourceCommand.PACommandNames_SAVE_RSB_DESIGN
+// TclEventType: RSB_SAVE_DIAGRAM
+// bx (cp):  Save Design : addNotify
+// Tcl Message: save_bd_design 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: Wrote  : <C:\Users\Angus.LA\Desktop\ece532_project\final\pitch-training-system\MEMES_mic\MEMES_mic.srcs\sources_1\bd\mic\mic.bd>  Wrote  : <C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/ui/bd_31df1c67.ui>  
+dismissDialog("Save Design"); // bx (cp)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // u (Q, cp)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (cp): No Implementation Results Available: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bx (cp):  Resetting Runs : addNotify
+// f (cp): Launch Runs: addNotify
+dismissDialog("No Implementation Results Available"); // A (cp)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (f)
+// TclEventType: RSB_SCRIPT_TASK
+dismissDialog("Launch Runs"); // f (cp)
+// TclEventType: FILE_SET_CHANGE
+// bx (cp):  Generate Bitstream : addNotify
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 6 
+// Tcl Message: INFO: [BD 41-1662] The design 'mic.bd' is already validated. Therefore parameter propagation will not be re-run. 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// [Engine Memory]: 1,012 MB (+33401kb) [00:08:53]
+// Tcl Message: VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/synth/mic.v 
+// Tcl Message: VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/sim/mic.v VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/hdl/mic_wrapper.v 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,016 MB. GUI used memory: 102 MB. Current time: 4/1/25, 2:47:23 AM EDT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PACKAGER_OBJECT_ADD
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block clk_wiz_0 . 
+selectButton(RDIResource.ProgressDialog_CANCEL, "Cancel"); // a (bx)
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [Common 17-41] Interrupt caught. Command should exit soon. INFO: [BD 41-1029] Generation completed for the IP Integrator block microblaze_0 . INFO: [BD 41-1029] Generation completed for the IP Integrator block microblaze_0_local_memory/dlmb_v10 . INFO: [BD 41-1171] User-interrupt detected : Generation halted successfully for IPIntegrator design C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/mic.bd 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [Common 17-344] 'launch_runs' was cancelled 
+// CommandFailedException: ERROR: [Common 17-69] Command failed:  
+// TclEventType: FILE_SET_CHANGE
+// aX (cp): Launch Run Critical Messages: addNotify
+// TclEventType: FILE_SET_CHANGE
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (aX)
+dismissDialog("Launch Run Critical Messages"); // aX (cp)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // u (Q, cp)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (cp): No Implementation Results Available: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bx (cp):  Resetting Runs : addNotify
+// f (cp): Launch Runs: addNotify
+dismissDialog("No Implementation Results Available"); // A (cp)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (f)
+// 'cw' command handler elapsed time: 3 seconds
+// TclEventType: RSB_SCRIPT_TASK
+dismissDialog("Launch Runs"); // f (cp)
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// bx (cp):  Generate Bitstream : addNotify
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// [Engine Memory]: 1,066 MB (+3519kb) [00:09:07]
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 6 
+// Tcl Message: INFO: [BD 41-1662] The design 'mic.bd' is already validated. Therefore parameter propagation will not be re-run. 
+// Tcl Message: Wrote  : <C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/ui/bd_31df1c67.ui>  
+// Tcl Message: VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/synth/mic.v 
+// Tcl Message: VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/sim/mic.v VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/hdl/mic_wrapper.v 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PACKAGER_OBJECT_ADD
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block clk_wiz_0 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block microblaze_0 . INFO: [BD 41-1029] Generation completed for the IP Integrator block microblaze_0_local_memory/dlmb_v10 . INFO: [BD 41-1029] Generation completed for the IP Integrator block microblaze_0_local_memory/ilmb_v10 . INFO: [BD 41-1029] Generation completed for the IP Integrator block microblaze_0_local_memory/dlmb_bram_if_cntlr . INFO: [BD 41-1029] Generation completed for the IP Integrator block microblaze_0_local_memory/ilmb_bram_if_cntlr . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block microblaze_0_local_memory/lmb_bram . 
+// Tcl Message: INFO: [Device 21-403] Loading part xc7a100tcsg324-1 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,176 MB. GUI used memory: 102 MB. Current time: 4/1/25, 2:47:42 AM EDT
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block mdm_1 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block rst_clk_wiz_0_100M . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block microblaze_0_axi_periph/xbar . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block user_Sang . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_uartlite_0 . 
+// [Engine Memory]: 1,272 MB (+160249kb) [00:09:25]
+// HMemoryUtils.trashcanNow. Engine heap size: 1,340 MB. GUI used memory: 102 MB. Current time: 4/1/25, 2:47:57 AM EDT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PACKAGER_OBJECT_ADD
+// TclEventType: PACKAGER_OBJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block audioin_fft_top_wrap_0 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_gpio_peripherals . INFO: [BD 41-1029] Generation completed for the IP Integrator block swctrl_piano_0 . INFO: [BD 41-1029] Generation completed for the IP Integrator block debug_periph_adapter_0 . 
+// Tcl Message: Exporting to file C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/hw_handoff/mic.hwh Generated Block Design Tcl file C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/hw_handoff/mic_bd.tcl Generated Hardware Definition File C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/synth/mic.hwdef 
+// [Engine Memory]: 1,353 MB (+17977kb) [00:09:57]
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Tue Apr  1 02:48:34 2025] Launched synth_1... Run output will be captured here: C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.runs/synth_1/runme.log [Tue Apr  1 02:48:34 2025] Launched impl_1... Run output will be captured here: C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.runs/impl_1/runme.log 
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:35 ; elapsed = 00:01:00 . Memory (MB): peak = 1353.957 ; gain = 333.805 
+// aX (cp): Launch Run Critical Messages: addNotify
+// Elapsed time: 95 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (aX)
+dismissDialog("Launch Run Critical Messages"); // aX (cp)
+// Elapsed time: 313 seconds
+selectTab((HResource) null, (HResource) null, "Design Runs", 4); // aI (aF, cp)
+// TclEventType: RUN_FAILED
+// HMemoryUtils.trashcanNow. Engine heap size: 1,383 MB. GUI used memory: 108 MB. Current time: 4/1/25, 3:03:58 AM EDT
+// ah (cp): Synthesis Failed: addNotify
+// Elapsed time: 589 seconds
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (ah)
+// Run Command: PAResourceCommand.PACommandNames_MESSAGE_WINDOW
+dismissDialog("Synthesis Failed"); // ah (cp)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,684 MB. GUI used memory: 105 MB. Current time: 4/1/25, 3:04:23 AM EDT
+// Elapsed time: 20 seconds
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, mic, General Messages, [BD 5-336] This command cannot be run, as the BD-design is locked. Locked reason(s):. * Block design contains locked IPs. Please run report_ip_status for more details and recommendations on how to fix this issue. . List of locked IPs: . mic_audioin_fft_top_wrap_0_0. . ]", 2, false); // ah (Q, cp)
+// [Engine Memory]: 1,771 MB (+367665kb) [00:26:09]
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, mic, General Messages, [BD 5-336] This command cannot be run, as the BD-design is locked. Locked reason(s):. * Block design contains locked IPs. Please run report_ip_status for more details and recommendations on how to fix this issue. . List of locked IPs: . mic_audioin_fft_top_wrap_0_0. . ]", 2, false); // ah (Q, cp)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, mic, General Messages, [BD 5-336] This command cannot be run, as the BD-design is locked. Locked reason(s):. * Block design contains locked IPs. Please run report_ip_status for more details and recommendations on how to fix this issue. . List of locked IPs: . mic_audioin_fft_top_wrap_0_0. . ]", 2, false, false, false, false, false, true); // ah (Q, cp) - Double Click
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, mic, General Messages, [BD 5-336] This command cannot be run, as the BD-design is locked. Locked reason(s):. * Block design contains locked IPs. Please run report_ip_status for more details and recommendations on how to fix this issue. . List of locked IPs: . mic_audioin_fft_top_wrap_0_0. . ]", 2, false); // ah (Q, cp)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,834 MB. GUI used memory: 105 MB. Current time: 4/1/25, 3:04:42 AM EDT
+collapseTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, mic, General Messages]", 1); // ah (Q, cp)
+expandTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, mic, General Messages]", 1); // ah (Q, cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v)]", 5); // B (D, cp)
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Hierarchy", 0); // i (N, cp)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, mic, General Messages, [BD 5-336] This command cannot be run, as the BD-design is locked. Locked reason(s):. * Block design contains locked IPs. Please run report_ip_status for more details and recommendations on how to fix this issue. . List of locked IPs: . mic_audioin_fft_top_wrap_0_0. . ]", 2, false); // ah (Q, cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), audioin_fft_top_wrap_0 : mic_audioin_fft_top_wrap_0_0 (mic_audioin_fft_top_wrap_0_0.xci)]", 6); // B (D, cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), audioin_fft_top_wrap_0 : mic_audioin_fft_top_wrap_0_0 (mic_audioin_fft_top_wrap_0_0.xci), mic_audioin_fft_top_wrap_0_0 (mic_audioin_fft_top_wrap_0_0.v), inst : audioin_fft_top_wrapper (audioin_fft_top_wrapper.v), audioin_fft_top_i : audioin_fft_top (audioin_fft_top.v)]", 9); // B (D, cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), audioin_fft_top_wrap_0 : mic_audioin_fft_top_wrap_0_0 (mic_audioin_fft_top_wrap_0_0.xci), mic_audioin_fft_top_wrap_0_0 (mic_audioin_fft_top_wrap_0_0.v), inst : audioin_fft_top_wrapper (audioin_fft_top_wrapper.v), audioin_fft_top_i : audioin_fft_top (audioin_fft_top.v), clk_wiz_0 : audioin_fft_top_clk_wiz_0_0 (audioin_fft_top_clk_wiz_0_0.xci)]", 15); // B (D, cp)
+// A (cp): Show IP Hierarchy: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (A)
+// TclEventType: DG_GRAPH_STALE
+dismissDialog("Show IP Hierarchy"); // A (cp)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, mic_wrapper (mic_wrapper.v), mic_i : mic (mic.bd), mic (mic.v), audioin_fft_top_wrap_0 : mic_audioin_fft_top_wrap_0_0 (mic_audioin_fft_top_wrap_0_0.xci), mic_audioin_fft_top_wrap_0_0 (mic_audioin_fft_top_wrap_0_0.v), inst : audioin_fft_top_wrapper (audioin_fft_top_wrapper.v), audioin_fft_top_i : audioin_fft_top (audioin_fft_top.v), xlconstant_0 : audioin_fft_top_xlconstant_0_0 (audioin_fft_top_xlconstant_0_0.xci)]", 17); // B (D, cp)
+// A (cp): Show IP Hierarchy: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (A)
+dismissDialog("Show IP Hierarchy"); // A (cp)
+// HMemoryUtils.trashcanNow. Engine heap size: 1,855 MB. GUI used memory: 105 MB. Current time: 4/1/25, 3:05:42 AM EDT
+// HMemoryUtils.trashcanNow. Engine heap size: 1,913 MB. GUI used memory: 105 MB. Current time: 4/1/25, 3:05:57 AM EDT
+// [Engine Memory]: 1,913 MB (+55955kb) [00:27:31]
+// Elapsed time: 72 seconds
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 245, 905, 2558, 1254, false, false, false, true, false); // fS (k, cp) - Popup Trigger
+selectMenu(PAResourceQtoS.SystemBuilderView_PINNING, "Pinning"); // ac (al, Popup.HeavyWeightWindow)
+// Run Command: RDIResourceCommand.RDICommands_DELETE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// Tcl Message: delete_bd_objs [get_bd_nets sys_clock_1] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_pins swctrl_piano_0/CLK100MHZ] [get_bd_pins clk_wiz_0/clk_out1] 
+// Run Command: PAResourceCommand.PACommandNames_SAVE_RSB_DESIGN
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// bx (cp):  Save Design : addNotify
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: save_bd_design 
+// Tcl Message: Wrote  : <C:\Users\Angus.LA\Desktop\ece532_project\final\pitch-training-system\MEMES_mic\MEMES_mic.srcs\sources_1\bd\mic\mic.bd>  Wrote  : <C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/ui/bd_31df1c67.ui>  
+// Elapsed time: 57 seconds
+dismissDialog("Save Design"); // bx (cp)
+// Run Command: RDIResourceCommand.RDICommands_UNDO
+typeControlKey(null, null, 'z');
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: undo 
+// Tcl Message: INFO: [Common 17-17] undo 'connect_bd_net [get_bd_pins swctrl_piano_0/CLK100MHZ] [get_bd_pins clk_wiz_0/clk_out1]' 
+// Run Command: RDIResourceCommand.RDICommands_UNDO
+typeControlKey(null, null, 'z');
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: undo 
+// Tcl Message: INFO: [Common 17-17] undo 'delete_bd_objs [get_bd_nets sys_clock_1]' 
+// Run Command: RDIResourceCommand.RDICommands_DELETE
+// TclEventType: RSB_REMOVE_OBJECT
+// Tcl Message: delete_bd_objs [get_bd_nets sys_clock_1] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_ports sys_clock] [get_bd_pins clk_wiz_0/clk_in1] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_pins swctrl_piano_0/CLK100MHZ] [get_bd_pins clk_wiz_0/clk_out1] 
+// Run Command: PAResourceCommand.PACommandNames_SAVE_RSB_DESIGN
+// TclEventType: RSB_SAVE_DIAGRAM
+// bx (cp):  Save Design : addNotify
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: save_bd_design 
+// Tcl Message: Wrote  : <C:\Users\Angus.LA\Desktop\ece532_project\final\pitch-training-system\MEMES_mic\MEMES_mic.srcs\sources_1\bd\mic\mic.bd>  Wrote  : <C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/ui/bd_31df1c67.ui>  
+// TclEventType: RSB_SAVE_DIAGRAM
+// Elapsed time: 32 seconds
+dismissDialog("Save Design"); // bx (cp)
+selectButton(PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN, "validate_bd_design_rsb"); // B (f, cp)
+// Run Command: PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN
+// Tcl Command: 'validate_bd_design'
+// TclEventType: RSB_PARAM_PROP
+// TclEventType: RSB_SCRIPT_TASK
+// bx (cp):  Validate Design : addNotify
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// Tcl Message: validate_bd_design 
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PARAM_PROP
+// Tcl Message: validate_bd_design: Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 2378.773 ; gain = 0.000 
+dismissDialog("Validate Design"); // bx (cp)
+selectButton("PAResourceTtoZ.ValidateRSBDesign_VALIDATION_SUCCESSFUL_THERE_NO_OK", "OK"); // JButton (C, I)
+// Elapsed time: 11 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // u (Q, cp)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// al (cp): Save Project: addNotify
+selectButton(PAResourceQtoS.SaveProjectUtils_SAVE, "Save"); // a (al)
+// bx (cp):  Save Constraints : addNotify
+// TclEventType: RSB_SAVE_DIAGRAM
+dismissDialog("Save Project"); // al (cp)
+// Tcl Message: save_bd_design 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: Wrote  : <C:\Users\Angus.LA\Desktop\ece532_project\final\pitch-training-system\MEMES_mic\MEMES_mic.srcs\sources_1\bd\mic\mic.bd>  
+// A (cp): No Implementation Results Available: addNotify
+dismissDialog("Save Constraints"); // bx (cp)
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bx (cp):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+dismissDialog("No Implementation Results Available"); // A (cp)
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// f (cp): Launch Runs: addNotify
+// WARNING: HEventQueue.dispatchEvent() is taking  1298 ms.
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (f)
+// 'cw' command handler elapsed time: 11 seconds
+// WARNING: HEventQueue.dispatchEvent() is taking  1190 ms.
+// TclEventType: RSB_SCRIPT_TASK
+dismissDialog("Launch Runs"); // f (cp)
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 6 
+// bx (cp):  Generate Bitstream : addNotify
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: INFO: [BD 41-1662] The design 'mic.bd' is already validated. Therefore parameter propagation will not be re-run. 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/synth/mic.v 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/sim/mic.v VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/hdl/mic_wrapper.v 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block microblaze_0_axi_periph/xbar . INFO: [BD 41-1029] Generation completed for the IP Integrator block user_Sang . INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_uartlite_0 . 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block audioin_fft_top_wrap_0 . INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_gpio_peripherals . INFO: [BD 41-1029] Generation completed for the IP Integrator block swctrl_piano_0 . INFO: [BD 41-1029] Generation completed for the IP Integrator block debug_periph_adapter_0 . 
+// Tcl Message: Exporting to file C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/hw_handoff/mic.hwh Generated Block Design Tcl file C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/hw_handoff/mic_bd.tcl Generated Hardware Definition File C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/synth/mic.hwdef 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Tue Apr  1 03:09:54 2025] Launched synth_1... Run output will be captured here: C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.runs/synth_1/runme.log [Tue Apr  1 03:09:54 2025] Launched impl_1... Run output will be captured here: C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.runs/impl_1/runme.log 
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:17 ; elapsed = 00:00:55 . Memory (MB): peak = 2378.773 ; gain = 0.000 
+// aX (cp): Launch Run Critical Messages: addNotify
+// Elapsed time: 56 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (aX)
+dismissDialog("Launch Run Critical Messages"); // aX (cp)
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 1439 ms. Increasing delay to 4317 ms.
+// Elapsed time: 351 seconds
+selectTab((HResource) null, (HResource) null, "Reports", 3); // aI (aF, cp)
+selectTab((HResource) null, (HResource) null, "Design Runs", 4); // aI (aF, cp)
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_FAILED
+// ah (cp): Bitstream Generation Failed: addNotify
+// HMemoryUtils.trashcanNow. Engine heap size: 1,913 MB. GUI used memory: 110 MB. Current time: 4/1/25, 3:35:58 AM EDT
+// Elapsed time: 1281 seconds
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (ah)
+// Run Command: PAResourceCommand.PACommandNames_LOG_WINDOW
+dismissDialog("Bitstream Generation Failed"); // ah (cp)
+selectTab((HResource) null, (HResource) null, "Messages", 1); // aI (aF, cp)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Write Bitstream, DRC, Pin Planning, [DRC NSTD-1] Unspecified I/O Standard: 1 out of 64 logical ports use I/O standard (IOSTANDARD) value 'DEFAULT', instead of a user assigned specific value. This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all I/O standards. This design will fail to generate a bitstream unless all logical ports have a user specified I/O standard value defined. To allow bitstream creation with unspecified I/O standard values (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks NSTD-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. Problem ports: UART_TXD.. ]", 16, false); // ah (Q, cp)
+messagesViewCrossProbe(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "port;-;UART_TXD;-;;-;10;-;"); // ah (Q, cp)
+// Elapsed time: 29 seconds
+selectButton("PAResourceItoN.MsgUtils_TO_SELECT_THIS_OBJECT_YOU_MUST_OPEN_No", "No"); // JButton (C, I)
+// Elapsed time: 78 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints]", 34, true); // B (D, cp) - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints]", 34); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, c1.xdc]", 36, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, c1.xdc]", 36, false, false, false, false, false, true); // B (D, cp) - Double Click
+selectCodeEditor("c1.xdc", 1126, 676); // cl (w, cp)
+selectCodeEditor("c1.xdc", 1126, 676, false, false, false, false, true); // cl (w, cp) - Double Click
+selectCodeEditor("c1.xdc", 1171, 681); // cl (w, cp)
+// Elapsed time: 30 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // k (j, cp)
+// Run Command: RDIResourceCommand.RDICommands_DELETE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: delete_bd_objs [get_bd_nets swctrl_piano_0_UART_TXD] [get_bd_ports UART_TXD] 
+// Run Command: PAResourceCommand.PACommandNames_SAVE_RSB_DESIGN
+// TclEventType: RSB_SAVE_DIAGRAM
+// bx (cp):  Save Design : addNotify
+// Tcl Message: save_bd_design 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: Wrote  : <C:\Users\Angus.LA\Desktop\ece532_project\final\pitch-training-system\MEMES_mic\MEMES_mic.srcs\sources_1\bd\mic\mic.bd>  Wrote  : <C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/ui/bd_31df1c67.ui>  
+// TclEventType: DG_GRAPH_STALE
+// Elapsed time: 21 seconds
+dismissDialog("Save Design"); // bx (cp)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // u (Q, cp)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (cp): Synthesis is Out-of-date: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// TclEventType: DG_GRAPH_STALE
+// bx (cp):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+dismissDialog("Synthesis is Out-of-date"); // A (cp)
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_MODIFY
+// f (cp): Launch Runs: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (f)
+// 'cw' command handler elapsed time: 4 seconds
+// TclEventType: RSB_SCRIPT_TASK
+dismissDialog("Launch Runs"); // f (cp)
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 6 
+// bx (cp):  Generate Bitstream : addNotify
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: Wrote  : <C:\Users\Angus.LA\Desktop\ece532_project\final\pitch-training-system\MEMES_mic\MEMES_mic.srcs\sources_1\bd\mic\mic.bd>  
+// Tcl Message: VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/synth/mic.v 
+// Tcl Message: VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/sim/mic.v VHDL Output written to : C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/hdl/mic_wrapper.v 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block audioin_fft_top_wrap_0 . INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_gpio_peripherals . INFO: [BD 41-1029] Generation completed for the IP Integrator block swctrl_piano_0 . INFO: [BD 41-1029] Generation completed for the IP Integrator block debug_periph_adapter_0 . 
+// Tcl Message: Exporting to file C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/hw_handoff/mic.hwh Generated Block Design Tcl file C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/hw_handoff/mic_bd.tcl Generated Hardware Definition File C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.srcs/sources_1/bd/mic/synth/mic.hwdef 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Tue Apr  1 03:40:46 2025] Launched synth_1... Run output will be captured here: C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.runs/synth_1/runme.log [Tue Apr  1 03:40:46 2025] Launched impl_1... Run output will be captured here: C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.runs/impl_1/runme.log 
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:10 ; elapsed = 00:00:28 . Memory (MB): peak = 2378.773 ; gain = 0.000 
+// aX (cp): Launch Run Critical Messages: addNotify
+// Elapsed time: 33 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (aX)
+dismissDialog("Launch Run Critical Messages"); // aX (cp)
+selectTab((HResource) null, (HResource) null, "Design Runs", 4); // aI (aF, cp)
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// ah (cp): Bitstream Generation Completed: addNotify
+// HMemoryUtils.trashcanNow. Engine heap size: 1,913 MB. GUI used memory: 108 MB. Current time: 4/1/25, 4:05:59 AM EDT
+// Elapsed time: 1518 seconds
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a (ah)
+dismissDialog("Bitstream Generation Completed"); // ah (cp)
+// Elapsed time: 119 seconds
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // X (q, cp)
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_TEXT_EDITOR, "Text Editor"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ac (cp)
+selectMenuItem(PAResourceCommand.PACommandNames_EXPORT_HARDWARE, "Export Hardware..."); // af (cp)
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // X (q, cp)
+// Run Command: PAResourceCommand.PACommandNames_EXPORT_HARDWARE
+// X (cp): Export Hardware: addNotify
+selectCheckBox(PAResourceItoN.NewExportHardwareDialog_INCLUDE_BITSTREAM, "Include bitstream", true); // g (Q, X): TRUE
+// Elapsed time: 102 seconds
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (X)
+// 'm' command handler elapsed time: 103 seconds
+dismissDialog("Export Hardware"); // X (cp)
+// Tcl Message: file mkdir C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk 
+// Tcl Message: file copy -force C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.runs/impl_1/mic_wrapper.sysdef C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk/mic_wrapper.hdf  
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // X (q, cp)
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_TEXT_EDITOR, "Text Editor"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ac (cp)
+selectMenuItem(PAResourceCommand.PACommandNames_LAUNCH_HARDWARE, "Launch SDK"); // af (cp)
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // X (q, cp)
+// Run Command: PAResourceCommand.PACommandNames_LAUNCH_HARDWARE
+// aa (cp): Launch SDK: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (aa)
+dismissDialog("Launch SDK"); // aa (cp)
+// Tcl Message: launch_sdk -workspace C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk -hwspec C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk/mic_wrapper.hdf 
+// Tcl Message: INFO: [Vivado 12-393] Launching SDK... INFO: [Vivado 12-417] Running xsdk -workspace C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk -hwspec C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk/mic_wrapper.hdf INFO: [Vivado 12-3157] SDK launch initiated. Please check console for any further messages. 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,913 MB. GUI used memory: 106 MB. Current time: 4/1/25, 4:35:59 AM EDT
