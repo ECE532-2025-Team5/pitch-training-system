@@ -805,3 +805,32 @@ dismissDialog("Launch SDK"); // aa (cp)
 // Tcl Message: launch_sdk -workspace C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk -hwspec C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk/mic_wrapper.hdf 
 // Tcl Message: INFO: [Vivado 12-393] Launching SDK... INFO: [Vivado 12-417] Running xsdk -workspace C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk -hwspec C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk/mic_wrapper.hdf INFO: [Vivado 12-3157] SDK launch initiated. Please check console for any further messages. 
 // HMemoryUtils.trashcanNow. Engine heap size: 1,913 MB. GUI used memory: 106 MB. Current time: 4/1/25, 4:35:59 AM EDT
+// WARNING: HEventQueue.dispatchEvent() is taking  894348 ms.
+// WARNING: HTimer (StateMonitor Timer) is taking 21736358ms to process. Increasing delay to 4000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  21736371 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 1,913 MB. GUI used memory: 106 MB. Current time: 4/1/25, 11:08:14 AM EDT
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 21741192 ms. Increasing delay to 3000 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 21741589 ms. Increasing delay to 65224767 ms.
+// Elapsed time: 25433 seconds
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // X (q, cp)
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_TEXT_EDITOR, "Text Editor"); // ac (cp)
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ac (cp)
+selectMenuItem(PAResourceCommand.PACommandNames_LAUNCH_HARDWARE, "Launch SDK"); // af (cp)
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // X (q, cp)
+// Run Command: PAResourceCommand.PACommandNames_LAUNCH_HARDWARE
+// aa (cp): Launch SDK: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (aa)
+dismissDialog("Launch SDK"); // aa (cp)
+// Tcl Message: launch_sdk -workspace C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk -hwspec C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk/mic_wrapper.hdf 
+// Tcl Message: INFO: [Vivado 12-393] Launching SDK... INFO: [Vivado 12-417] Running xsdk -workspace C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk -hwspec C:/Users/Angus.LA/Desktop/ece532_project/final/pitch-training-system/MEMES_mic/MEMES_mic.sdk/mic_wrapper.hdf INFO: [Vivado 12-3157] SDK launch initiated. Please check console for any further messages. 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,913 MB. GUI used memory: 106 MB. Current time: 4/1/25, 11:38:18 AM EDT
+// WARNING: HEventQueue.dispatchEvent() is taking  14703 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  864384 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 1,913 MB. GUI used memory: 106 MB. Current time: 4/1/25, 12:14:32 PM EDT
+// WARNING: HEventQueue.dispatchEvent() is taking  209989486 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 1,913 MB. GUI used memory: 105 MB. Current time: 4/3/25, 10:34:41 PM EDT
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 209996617 ms. Increasing delay to 4000 ms.
+// WARNING: HSwingWorker (Monitor File Timestamp Swing Worker) is taking 596 ms to process. Increasing delay to 2000 ms.
