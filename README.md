@@ -1,12 +1,17 @@
 # pitch-training-system
 
+## MAIN PROJECT
+`./MEMES_mic/MEMS_mic.xpr`
+
 ## PERIPHERALS (Angus)
 Logic in `./system_software` project.
+
 Dependencies:
 - Top Level (`./integration/piano_with_software/swctrl_piano.v`)
     - piano (`./integration/piano_with_software/piano.v`)
         - Keyboard input (`./keyboard/keyboard.v`), with passthrough to module output
         - Custom PS2/ASCII library (`./keyboard/ps2_to_ascii.v`)
+              - **MUST SET THIS TO GLOBAL INCLUDE**
         - Piano Keyboard from Keyboard (`./keyboard/kb2piano_octave.v`)
         - Audio (`./audio/piano/piano_octave.v`)
             - Piano Note (`./audio/piano/piano_note.v`)
