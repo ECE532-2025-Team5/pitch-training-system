@@ -1,8 +1,12 @@
 # pitch-training-system
 
 ## MAIN PROJECT
+### Project
 `./MEMES_mic/MEMS_mic.xpr`
-
+### IP
+`./PitchTrainingSystem_ip`
+### Bitstream
+`./PitchTrainingSystem_bitstream`
 ## PERIPHERALS (Angus)
 Logic in `./system_software` project.
 
