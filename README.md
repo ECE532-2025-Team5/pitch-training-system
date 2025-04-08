@@ -3,9 +3,9 @@
 ## MAIN PROJECT
 ### Project
 `./MEMES_mic/MEMS_mic.xpr`
-### IP
+### Project as IP
 `./PitchTrainingSystem_ip`
-### Bitstream
+### Project Bitstream
 `./PitchTrainingSystem_bitstream`
 ## PERIPHERALS (Angus)
 Logic in `./system_software` project.
