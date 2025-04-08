@@ -1,5 +1,8 @@
 # pitch-training-system
 
+## Demo Video
+[[Demo Video](https://drive.google.com/file/d/1itBqGoORBzjwbRXPHgy6ghcZGT6SCLdY/view?usp=sharing)]
+
 ## MAIN PROJECT
 ### Project
 `./MEMES_mic/MEMS_mic.xpr`
