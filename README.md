@@ -1,8 +1,15 @@
 # pitch-training-system
 
-## MAIN PROJECT
-`./MEMES_mic/MEMS_mic.xpr`
+## Demo Video
+[[Demo Video](https://drive.google.com/file/d/1itBqGoORBzjwbRXPHgy6ghcZGT6SCLdY/view?usp=sharing)]
 
+## MAIN PROJECT
+### Project
+`./MEMES_mic/MEMS_mic.xpr`
+### Project as IP
+`./PitchTrainingSystem_ip`
+### Project Bitstream
+`./PitchTrainingSystem_bitstream`
 ## PERIPHERALS (Angus)
 Logic in `./system_software` project.
 
