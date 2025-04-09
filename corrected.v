@@ -36,7 +36,7 @@ always @(posedge clk) begin
 end
 assign MIC_CLK_posedge = ({MIC_CLK_d, MIC_CLK}==2'b01) ? 1'b1 : 1'b0;
 
-//10 counters that outputs PDM to PWM counting alternatively to output at a frequency of 5.12 us 
+//20 counters that outputs PDM to PWM counting alternatively to output at a frequency of 5.12 us 
 //while PDM full count finished at 51.2 us
 reg [7:0] PDM_counter;
 always @(posedge clk or posedge rst) begin
