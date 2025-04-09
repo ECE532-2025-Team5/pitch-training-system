@@ -60,23 +60,21 @@ int main() {
     	{
             //Xil_Out32(RGB_LED_ADDR, 0x20000);
     		numNotes = get_random_U32_number(state)%3 +1;
-            //numNotes = Xil_In32(NUM_NOTES);
             //how many notes are randomly generated shown through led[1:0]
-            //Xil_Out32(LED_BASE_ADDR, numNotes);
     		u32 *randNoteArray = malloc(numNotes * sizeof(u32));
     		u32 *UserInputs = malloc(numNotes * sizeof(u32));
     		int matches=0;
     		u32 AllMatch;
-    		//sub with space ascii keyboard
+    		//substitute the SWITCHES_ADDR with space ascii keyboard
     	    if (Xil_In32(SWITCHES_ADDR)&0x4) {
     	        LEDrep |= (1 << 15);  // Set LED[15]
     	    } else {
     	        LEDrep &= ~(1 << 15); // Clear LED[15] when button is not pressed
     	    }
-            //show what notes are generated through
-            //note 1: LED [3:2]
-            //note 2: LED [5:4]
-            //note 3: LED [7:6]
+
+			//generate the random notes and store them in an array
+			//for testing purposes, the notes generated in this FSM will only be
+			//0, 1,2,3
             for (int i=0;i<numNotes;i++){
     			randNoteArray[i]=get_random_U32_number(state)%4;
     			if (i!=0){
@@ -87,7 +85,13 @@ int main() {
     				}
     			}
     		}
-    		//randNoteArray[0]=3;
+
+			//package the generated chords to hardware peripheral pipeline
+			//show what notes are generated through
+			//number of notes: [1:0]
+            //note 1: LED [3:2]
+            //note 2: LED [5:4]
+            //note 3: LED [7:6]
             if (numNotes==1){
     			chord = (randNoteArray[0]<<2)+numNotes;
     			LEDrep=chord;
@@ -104,26 +108,15 @@ int main() {
     			LEDrep=chord;
     			Xil_Out32(LED_BASE_ADDR, LEDrep);
     		}
-
-
-    		//0-11 +28
-//    		//concatenate the chord for outputting the chord to the audio port
-//    		while (Xil_In32(PUSH_BUTTON_BASE_ADDR)){
-//    			Xil_Out32(LED_BASE_ADDR,chord);
-//    		}
-    		//if randomly generated note is just 1; user only need to input 1 input
-            //only input data using switches[1:0]
-    		//LEDrep=(UserInputs[0]<<8)|(UserInputs[1]<<10)|(UserInputs[2]<<12)|chord;
-    		//Xil_Out32(LED_BASE_ADDR, LEDrep);
-//            for (int i = 0; i < numNotes; i++) {
-//                u32 newInput;
-//                do {
-//                    newInput = Xil_In32(SWITCHES_ADDR) & 0x3;  // Read switch value
-//                } while ((i > 0 && newInput == UserInputs[i - 1])||(i==0 && newInput==initial_input));  // Ensure it's different
-//                UserInputs[i] = newInput;  // Store valid input
-//                LEDrep=(UserInputs[i]<<(8+i))|LEDrep;
-//                Xil_Out32(LED_BASE_ADDR, LEDrep);
-//            }
+			//LED shows userInputs:
+        	//userInput[0]: LED[9:8]
+        	//[1]: LED[11:10]
+        	//[2]:led[13:12]
+			//packaged together with prior information about the chord
+			//number of notes: [1:0]
+            //note 1: LED [3:2]
+            //note 2: LED [5:4]
+            //note 3: LED [7:6]
             if (numNotes == 1) {
                 // Wait for user input change
                 do {
@@ -185,6 +178,7 @@ int main() {
                 Xil_Out32(LED_BASE_ADDR, LEDrep);
             }
 
+			//comparison logic
     		for (int x = 0; x < numNotes; x++) {
     		    for (int y = 0; y < numNotes; y++) {
     		        if (UserInputs[x] == randNoteArray[y]) {
@@ -193,21 +187,20 @@ int main() {
     		        }
     		    }
     		}
-////
+			//LED shows output of comparison result:
+			//LED[14]: comparison results
+			//packaged with prior information of chord and user inputs
+			//number of notes: [1:0]
+            //note 1: LED [3:2]
+            //note 2: LED [5:4]
+            //note 3: LED [7:6]
+        	//userInput[0]: LED[9:8]
+        	//[1]: LED[11:10]
+        	//[2]:led[13:12]
+
     		AllMatch = (matches==numNotes)?1:0;  // True if all match
-        //on the LED, userInputs:
-        //userInput[0]: LED[9:8]
-        //[1]: LED[11:10]
-        //[2]:led[13:12]
-        //Match:led[14]
     		LEDrep = LEDrep|(AllMatch<<14);
     		Xil_Out32(LED_BASE_ADDR, LEDrep);
-  //    else should not do anything; if was just added to guarantee the first input
-//      by the user is read
-//    	else
-//    	{
-//
-//    	}
 		}
 		else if(mode == 3){
 			Xil_Out32(RGB_LED_ADDR, 0x3);
@@ -219,8 +212,6 @@ int main() {
 				//switches [3:2]
 				UserSang=Xil_In32(SWITCHES_ADDR)&0x3;
 			}
-			//u32 referenceNote=freePlayInput& 0x11111110000;
-			//userSang=Xil_In32(AUDIO_BASE_ADDR);
 			u32 package;
 			u32 Match_freePlay;
 			if (UserSang){

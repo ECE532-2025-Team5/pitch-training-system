@@ -28,7 +28,8 @@
 #define HOME_SCREEN      0x0
 #define SPACE      0x20
 
-
+//pseudo-random number generator that takes in 
+//the user input as part of the seed
 unsigned int get_random_U32_number(u32 *state,u32 result) {
     u32 Number = *state;
     Number ^= Number << 13;
@@ -40,6 +41,7 @@ unsigned int get_random_U32_number(u32 *state,u32 result) {
 volatile unsigned int* reference = (unsigned int*) XPAR_MODE_BASEADDR;
 volatile unsigned int* User_Sang = (unsigned int*) XPAR_GPIO_3_BASEADDR;
 
+//maps the audio pipeline output frequency to corresponding notes
 u32 audio_pipeline_note_mapping_ifEl(u32 audio_bin){
 	u32 note;
 	if (audio_bin>=34 && audio_bin<=36){
@@ -79,7 +81,7 @@ u32 audio_pipeline_note_mapping_ifEl(u32 audio_bin){
 		note=44;
 	}
 	else{
-        //print("User not singing in the specified range.");
+        print("User not singing in the specified range.");
         note =0;
 	}
 	return note;
@@ -123,7 +125,7 @@ int main() {
     		int matches=0;
     		u32 AllMatch;
 
-            //generate random notes
+            //generate random notes with note IDs used in the project
             //(0-11) +33
             for (int i=0;i<numNotes;i++){
     			randNoteArray[i]=get_random_U32_number(state,result)%12+33;
@@ -135,7 +137,8 @@ int main() {
     				}
     			}
     		}
-    		//randNoteArray[0]=3;
+    		//package the number of notes generated and the note IDs
+			//send to hardware peripheral pipeline
             if (numNotes==1){
     			chord = (randNoteArray[0]<<4)|(numNotes<<2)|mode;
 
@@ -147,13 +150,15 @@ int main() {
     			chord = (randNoteArray[0]<<4)|(randNoteArray[1]<<11)|(randNoteArray[2]<<18)|(numNotes<<2)|mode;
     		}
 
-    		//sub with space ascii keyboard:
+    		//substitute the SWITCHES_ADDR with space ascii keyboard
     	    if (Xil_In32(SWITCHES_ADDR)&0x4) {
     	    	chord = chord | (0<<31);
     	    	Xil_Out32(LED_BASE_ADDR, chord);  // Set LED[15]
     	    }
 
-    		//concatenate the chord for outputting the chord to the audio port
+    		//wait for user inputs and package the user inputs
+			//with prior information of chord and send to 
+			//hardware peripheral
             if (numNotes == 1) {
                 // Wait for user input change
                 do {
@@ -193,6 +198,7 @@ int main() {
                 } while (UserInputs[2] == UserInputs[0] || UserInputs[2] == UserInputs[1]);
             }
 
+			//conduct comparison
     		for (int x = 0; x < numNotes; x++) {
     		    for (int y = 0; y < numNotes; y++) {
     		        if (UserInputs[x] == randNoteArray[y]) {
@@ -201,33 +207,29 @@ int main() {
     		        }
     		    }
     		}
-////
     		AllMatch = (matches==numNotes)?1:0;  // True if all match
 
     		chord = chord|(AllMatch<<31);
+			//output comparison result to hardware peripheral
 
-    		//change with Peripheral address mapping
+			//substituted the LED_BASE_ADDR with the mapped addr
+			//of hardware peripheral pipeline
     		Xil_Out32(LED_BASE_ADDR, chord);
 		}
 		else if(mode == 3){
 			xil_printf("Im in mode 3\n.");
 
+			//map the frequency output from audio pipeline with note ID
 			u32 UserSang_note = audio_pipeline_note_mapping_ifEl(*User_Sang);
 			if(*reference==UserSang_note){
 				xil_printf("Pitch Matched.\n User Sang: %d\n",UserSang_note);
-					//Match_freePlay=1;
+				//outputs comparison result
 			}
 			else{
-					//Match_freePlay =0;
+				//outputs comparison result
 				xil_printf("Pitch Note Matched.\n User Sang: %d\n",UserSang_note);
 			}
-
-			//package = (UserSang_note<<25)|(Match_freePlay<<31)|mode;
-			//sub with peri address
-			//Xil_Out32(LED_BASE_ADDR, package);
-			//sleep(50);
 		}
-
     }
     return 0;
 }
